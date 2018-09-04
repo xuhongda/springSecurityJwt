@@ -24,10 +24,20 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.formLogin()
+                //自定义登陆页面
+                .loginPage("/login.html")
+                .loginProcessingUrl("/myauthentication/form")
                 .and()
                 .authorizeRequests()
+                //匹配login页面允许，避免不断重定向
+                .antMatchers("/login.html").permitAll()
+                //所有请求都要身份验证
                 .anyRequest()
-                .authenticated();
+                .authenticated()
+                .and()
+                //csrf 问题
+                .csrf()
+                .disable();
 
     }
 

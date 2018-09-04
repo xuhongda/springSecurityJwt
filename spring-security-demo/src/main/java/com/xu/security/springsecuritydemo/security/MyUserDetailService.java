@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.social.security.SocialUser;
 import org.springframework.stereotype.Component;
 
 /**
@@ -26,9 +27,14 @@ public class MyUserDetailService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         //密码加密
-        String root = passwordEncoder.encode("root");
+        String password = passwordEncoder.encode("root");
         logger.info("登录用户名："+username);
-        logger.info("登录密码："+root);
-        return new User("root",root, AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
+        logger.info("登录密码："+password);
+       // return new User("root",password, AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
+
+        //返回一个完整账户信息
+        return new SocialUser(username, password,
+                true, true, true, true,
+                AuthorityUtils.commaSeparatedStringToAuthorityList("admin"));
     }
 }

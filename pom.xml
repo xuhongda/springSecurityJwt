@@ -45,6 +45,7 @@
 
     <modules>
         <module>spring-security-browser</module>
+        <module>spring-security-demo</module>
     </modules>
 
 
