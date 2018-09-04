@@ -1,5 +1,7 @@
 package com.xu.security.springsecuritydemo.config;
 
+import com.xu.security.springsecuritydemo.core.SecurityProperties;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,6 +17,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    private SecurityProperties securityProperties;
+
     /**
      * 验证方式
      * @param http
@@ -25,12 +30,13 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.formLogin()
                 //自定义登陆页面
-                .loginPage("/login.html")
+                .loginPage("/myauthentication/require")
+                //表单action
                 .loginProcessingUrl("/myauthentication/form")
                 .and()
                 .authorizeRequests()
                 //匹配login页面允许，避免不断重定向
-                .antMatchers("/login.html").permitAll()
+                .antMatchers("/myauthentication/require",securityProperties.getBrowser().getLoginPage()).permitAll()
                 //所有请求都要身份验证
                 .anyRequest()
                 .authenticated()
