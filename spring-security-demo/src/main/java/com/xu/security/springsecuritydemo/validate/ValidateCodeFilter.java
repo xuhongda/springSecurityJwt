@@ -25,6 +25,7 @@ import java.util.Set;
 
 /**
  * <p>验证码拦截器</p>
+ *
  * @author xuhongda on 2018/9/5
  * com.xu.security.springsecuritydemo.config
  * springSecurityJwt
@@ -71,9 +72,9 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
     }
 
     /**
-     *
      * 切割url
      * 将系统中配置的需要校验验证码的URL根据校验的类型放入map
+     *
      * @param urlString
      * @param type
      */
@@ -104,9 +105,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
                 return;
             }
         }
-
         chain.doFilter(request, response);
-
     }
 
     /**

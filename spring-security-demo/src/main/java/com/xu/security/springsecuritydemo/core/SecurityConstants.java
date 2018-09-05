@@ -1,5 +1,7 @@
 package com.xu.security.springsecuritydemo.core;
 
+import com.xu.security.springsecuritydemo.controller.browser.BrowserSecurityController;
+
 /**
  * <p>
  *     长量
@@ -41,4 +43,11 @@ public interface SecurityConstants {
      * 发送短信验证码 或 验证短信验证码时，传递手机号的参数的名称
      */
     String DEFAULT_PARAMETER_NAME_MOBILE = "mobile";
+
+    /**
+     * 当请求需要身份认证时，默认跳转的url
+     *
+     * @see BrowserSecurityController
+     */
+    String DEFAULT_UNAUTHENTICATION_URL = "/authentication/require";
 }
