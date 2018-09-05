@@ -22,6 +22,7 @@ public abstract class AbstractValidateCodeProcessor <C extends ValidateCode> imp
      */
     private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
     /**
+     * spring容器启动时会把所有实现ValidateCodeGenerator收集
      * 收集系统中所有的 {@link ValidateCodeGenerator} 接口的实现。
      */
     @Autowired

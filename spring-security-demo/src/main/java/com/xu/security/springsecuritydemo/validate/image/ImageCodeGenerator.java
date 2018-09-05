@@ -1,6 +1,8 @@
-package com.xu.security.springsecuritydemo.validate;
+package com.xu.security.springsecuritydemo.validate.image;
 
 import com.xu.security.springsecuritydemo.properties.SecurityProperties;
+import com.xu.security.springsecuritydemo.validate.ValidateCodeGenerator;
+import com.xu.security.springsecuritydemo.validate.image.ImageCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.context.request.ServletWebRequest;

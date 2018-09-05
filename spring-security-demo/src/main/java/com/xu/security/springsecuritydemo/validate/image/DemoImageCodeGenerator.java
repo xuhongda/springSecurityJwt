@@ -1,6 +1,7 @@
-package com.xu.security.springsecuritydemo.validate;
+package com.xu.security.springsecuritydemo.validate.image;
 
-import org.springframework.stereotype.Component;
+import com.xu.security.springsecuritydemo.validate.ValidateCodeGenerator;
+import com.xu.security.springsecuritydemo.validate.image.ImageCode;
 import org.springframework.web.context.request.ServletWebRequest;
 
 /**

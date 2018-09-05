@@ -1,6 +1,10 @@
+/**
+ * 
+ */
 package com.xu.security.springsecuritydemo.properties;
 
 import lombok.Data;
+import org.springframework.boot.autoconfigure.social.SocialProperties;
 
 /**
  * @author xuhongda on 2018/9/5
@@ -8,10 +12,8 @@ import lombok.Data;
  * springSecurityJwt
  */
 @Data
-public class SocialProperties {
-
-    private String filterProcessesUrl = "/auth";
-
-    private QQProperties qq = new QQProperties();
+public class QQProperties extends SocialProperties {
+	
+	private String providerId = "qq";
 
 }

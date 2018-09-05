@@ -1,8 +1,10 @@
 package com.xu.security.springsecuritydemo.config;
 
 import com.xu.security.springsecuritydemo.properties.SecurityProperties;
-import com.xu.security.springsecuritydemo.validate.ImageCodeGenerator;
+import com.xu.security.springsecuritydemo.validate.image.ImageCodeGenerator;
 import com.xu.security.springsecuritydemo.validate.ValidateCodeGenerator;
+import com.xu.security.springsecuritydemo.validate.sms.DefaultSmsCodeSender;
+import com.xu.security.springsecuritydemo.validate.sms.SmsCodeSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -33,6 +35,16 @@ public class ValidateCodeBeanConfig {
         ImageCodeGenerator codeGenerator = new ImageCodeGenerator();
         codeGenerator.setSecurityProperties(securityProperties);
         return codeGenerator;
+    }
+
+    /**
+     * 短信验证
+     * @return
+     */
+    @Bean
+    @ConditionalOnMissingBean(SmsCodeSender.class)
+    public SmsCodeSender smsCodeSender() {
+        return new DefaultSmsCodeSender();
     }
 
 }

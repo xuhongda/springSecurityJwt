@@ -1,4 +1,6 @@
-package com.xu.security.springsecuritydemo.validate;
+package com.xu.security.springsecuritydemo.validate.image;
+
+import com.xu.security.springsecuritydemo.validate.ValidateCode;
 
 import java.awt.image.BufferedImage;
 import java.time.LocalDateTime;
@@ -8,7 +10,7 @@ import java.time.LocalDateTime;
  * com.xu.security.springsecuritydemo.validate
  * springSecurityJwt
  */
-public class ImageCode extends ValidateCode{
+public class ImageCode extends ValidateCode {
 
     private BufferedImage image;
 

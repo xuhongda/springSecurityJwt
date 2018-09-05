@@ -15,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.social.security.SpringSocialConfigurer;
 
 import javax.sql.DataSource;
 
@@ -45,6 +46,10 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
 
+
+    @Autowired
+    private SpringSocialConfigurer mySocialSecurityConfig;
+
     /**
      * 验证方式
      * @param http
@@ -64,6 +69,9 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(myAuthenticationSuccessHandler)
                 //配置返回失败页
                 .failureHandler(myAuthenctiationFailureHandler)
+                .and()
+                //社交登录
+                .apply(mySocialSecurityConfig)
                 //配置记住我功能
                 .and()
                 .rememberMe()
@@ -74,7 +82,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 //匹配页面允许，避免不断重定向；未登录授权
                 .antMatchers("/myauthentication/require",securityProperties.getBrowser().getLoginPage()
-                        ,"/code/image").permitAll()
+                        ,"/code/*").permitAll()
                 //所有请求都要身份验证
                 .anyRequest()
                 .authenticated()
