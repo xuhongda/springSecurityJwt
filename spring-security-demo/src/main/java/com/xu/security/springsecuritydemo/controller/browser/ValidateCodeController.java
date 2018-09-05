@@ -1,6 +1,7 @@
 package com.xu.security.springsecuritydemo.controller.browser;
 
 import com.xu.security.springsecuritydemo.core.SecurityConstants;
+import com.xu.security.springsecuritydemo.validate.ValidateCodeProcessor;
 import com.xu.security.springsecuritydemo.validate.ValidateCodeProcessorHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

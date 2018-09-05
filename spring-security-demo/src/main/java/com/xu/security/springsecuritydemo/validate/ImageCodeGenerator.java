@@ -10,6 +10,9 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 
 /**
+ * <p>
+ *     图形验证码生成逻辑
+ * </p>
  * @author xuhongda on 2018/9/5
  * com.xu.security.springsecuritydemo.validate
  * springSecurityJwt

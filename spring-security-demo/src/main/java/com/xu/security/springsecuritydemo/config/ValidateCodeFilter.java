@@ -24,6 +24,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
+ * <p>验证码拦截器</p>
  * @author xuhongda on 2018/9/5
  * com.xu.security.springsecuritydemo.config
  * springSecurityJwt
@@ -98,6 +99,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
                 logger.info("验证码校验通过");
             } catch (ValidateCodeException exception) {
                 authenticationFailureHandler.onAuthenticationFailure(request, response, exception);
+                //不继续往下调过滤器
                 return;
             }
         }

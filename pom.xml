@@ -27,7 +27,12 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
+    <developers>
+        <developer>
+            <name>xuhongda</name>
+            <email>xuhongda7@outlook.com</email>
+        </developer>
+    </developers>
     <build>
         <plugins>
             <plugin>

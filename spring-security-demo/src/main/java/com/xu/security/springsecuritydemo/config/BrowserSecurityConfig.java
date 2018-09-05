@@ -40,7 +40,9 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class).formLogin()
+        http
+                //验证码
+                .addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class).formLogin()
                 //自定义登陆页面
                 .loginPage("/myauthentication/require")
                 //表单action
@@ -51,7 +53,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureHandler(myAuthenctiationFailureHandler)
                 .and()
                 .authorizeRequests()
-                //匹配页面允许，避免不断重定向
+                //匹配页面允许，避免不断重定向；未登录授权
                 .antMatchers("/myauthentication/require",securityProperties.getBrowser().getLoginPage()
                         ,"/code/image").permitAll()
                 //所有请求都要身份验证
