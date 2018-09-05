@@ -1,6 +1,8 @@
 package com.xu.security.springsecuritydemo.config;
 
-import com.xu.security.springsecuritydemo.core.SecurityProperties;
+import com.xu.security.springsecuritydemo.controller.browser.MyAuthenctiationFailureHandler;
+import com.xu.security.springsecuritydemo.controller.browser.MyAuthenticationSuccessHandler;
+import com.xu.security.springsecuritydemo.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +22,12 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private SecurityProperties securityProperties;
 
+    @Autowired
+    private MyAuthenticationSuccessHandler myAuthenticationSuccessHandler;
+
+    @Autowired
+    private MyAuthenctiationFailureHandler myAuthenctiationFailureHandler;
+
     /**
      * 验证方式
      * @param http
@@ -33,10 +41,15 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/myauthentication/require")
                 //表单action
                 .loginProcessingUrl("/myauthentication/form")
+                //配置返回成功页
+                .successHandler(myAuthenticationSuccessHandler)
+                //配置返回失败页
+                .failureHandler(myAuthenctiationFailureHandler)
                 .and()
                 .authorizeRequests()
-                //匹配login页面允许，避免不断重定向
-                .antMatchers("/myauthentication/require",securityProperties.getBrowser().getLoginPage()).permitAll()
+                //匹配页面允许，避免不断重定向
+                .antMatchers("/myauthentication/require",securityProperties.getBrowser().getLoginPage()
+                        ,"/code/image").permitAll()
                 //所有请求都要身份验证
                 .anyRequest()
                 .authenticated()

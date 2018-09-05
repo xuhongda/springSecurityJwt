@@ -2,6 +2,8 @@ package com.xu.security.springsecuritydemo.controller;
 
 
 import com.xu.security.springsecuritydemo.pojo.User;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,5 +23,10 @@ public class UserController {
         System.out.println(user);
         List<User> users = Arrays.asList(new User("xu", "18"), new User("yan", "18"));
         return users;
+    }
+
+    @GetMapping("/me")
+    public Object getCurrentUser(@AuthenticationPrincipal UserDetails user) {
+        return user;
     }
 }

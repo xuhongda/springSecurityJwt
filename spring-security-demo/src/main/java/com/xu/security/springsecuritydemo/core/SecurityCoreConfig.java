@@ -3,6 +3,7 @@
  */
 package com.xu.security.springsecuritydemo.core;
 
+import com.xu.security.springsecuritydemo.properties.SecurityProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 

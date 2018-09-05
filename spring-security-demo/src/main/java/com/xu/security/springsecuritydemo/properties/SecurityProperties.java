@@ -1,5 +1,6 @@
-package com.xu.security.springsecuritydemo.core;
+package com.xu.security.springsecuritydemo.properties;
 
+import com.xu.security.springsecuritydemo.core.BrowserProperties;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
@@ -13,4 +14,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Data
 public class SecurityProperties {
     private BrowserProperties browser = new BrowserProperties();
+    private ValidateCodeProperties code = new ValidateCodeProperties();
+
 }
