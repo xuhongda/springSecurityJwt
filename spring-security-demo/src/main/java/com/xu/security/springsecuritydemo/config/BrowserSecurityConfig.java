@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  * @author xuhongda on 2018/9/4
@@ -28,6 +29,9 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private MyAuthenctiationFailureHandler myAuthenctiationFailureHandler;
 
+    @Autowired
+    private ValidateCodeFilter validateCodeFilter;
+
     /**
      * 验证方式
      * @param http
@@ -36,7 +40,7 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.formLogin()
+        http.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class).formLogin()
                 //自定义登陆页面
                 .loginPage("/myauthentication/require")
                 //表单action
