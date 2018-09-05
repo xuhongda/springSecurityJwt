@@ -1,5 +1,8 @@
 package com.xu.security.springsecuritydemo.config;
 
+import com.xu.security.springsecuritydemo.authentication.AbstractChannelSecurityConfig;
+import com.xu.security.springsecuritydemo.authentication.mobile.SmsCodeAuthenticationSecurityConfig;
+import com.xu.security.springsecuritydemo.core.SecurityConstants;
 import com.xu.security.springsecuritydemo.returnHandler.MyAuthenctiationFailureHandler;
 import com.xu.security.springsecuritydemo.returnHandler.MyAuthenticationSuccessHandler;
 import com.xu.security.springsecuritydemo.properties.SecurityProperties;
@@ -26,7 +29,7 @@ import javax.sql.DataSource;
  * springSecurityJwt
  */
 @Configuration
-public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
+public class BrowserSecurityConfig extends AbstractChannelSecurityConfig {
 
     @Autowired
     private SecurityProperties securityProperties;
@@ -50,6 +53,12 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private SpringSocialConfigurer mySocialSecurityConfig;
 
+    @Autowired
+    private SmsCodeAuthenticationSecurityConfig smsCodeAuthenticationSecurityConfig;
+
+    @Autowired
+    private ValidateCodeSecurityConfig validateCodeSecurityConfig;
+
     /**
      * 验证方式
      * @param http
@@ -58,18 +67,24 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http
-                //验证码
-                .addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class).formLogin()
-                //自定义登陆页面
-                .loginPage("/myauthentication/require")
-                //表单action
-                .loginProcessingUrl("/myauthentication/form")
-                //配置返回成功页
-                .successHandler(myAuthenticationSuccessHandler)
-                //配置返回失败页
-                .failureHandler(myAuthenctiationFailureHandler)
+        //验证配置
+        applyPasswordAuthenticationConfig(http);
+
+        http    .apply(validateCodeSecurityConfig)
                 .and()
+                .apply(smsCodeAuthenticationSecurityConfig)
+                .and()
+                //验证码
+                //.addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class).formLogin()
+                //自定义登陆页面
+                //.loginPage("/myauthentication/require")
+                //表单action
+               // .loginProcessingUrl("/myauthentication/form")
+                //配置返回成功页
+               // .successHandler(myAuthenticationSuccessHandler)
+                //配置返回失败页
+                //.failureHandler(myAuthenctiationFailureHandler)
+              //  .and()
                 //社交登录
                 .apply(mySocialSecurityConfig)
                 //配置记住我功能
@@ -81,8 +96,12 @@ public class BrowserSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 //匹配页面允许，避免不断重定向；未登录授权
-                .antMatchers("/myauthentication/require",securityProperties.getBrowser().getLoginPage()
-                        ,"/code/*").permitAll()
+                .antMatchers(
+                        SecurityConstants.DEFAULT_UNAUTHENTICATION_URL,
+                        SecurityConstants.DEFAULT_LOGIN_PROCESSING_URL_MOBILE,
+                        securityProperties.getBrowser().getLoginPage(),
+                        SecurityConstants.DEFAULT_VALIDATE_CODE_URL_PREFIX+"/*"
+                ).permitAll()
                 //所有请求都要身份验证
                 .anyRequest()
                 .authenticated()
