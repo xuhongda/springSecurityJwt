@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.xu.security.springsecuritydemo.core;
+package com.xu.security.springsecuritydemo.config;
 
 import com.xu.security.springsecuritydemo.properties.SecurityProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
