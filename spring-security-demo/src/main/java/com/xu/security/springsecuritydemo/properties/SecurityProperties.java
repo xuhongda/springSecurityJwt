@@ -1,6 +1,5 @@
 package com.xu.security.springsecuritydemo.properties;
 
-import com.xu.security.springsecuritydemo.core.BrowserProperties;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

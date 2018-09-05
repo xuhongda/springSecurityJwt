@@ -1,6 +1,5 @@
-package com.xu.security.springsecuritydemo.core;
+package com.xu.security.springsecuritydemo.properties;
 
-import com.xu.security.springsecuritydemo.properties.LoginResponseType;
 import lombok.Data;
 
 /**
@@ -19,5 +18,10 @@ public class BrowserProperties {
      * 指定默认返回类型
      */
     private LoginResponseType loginType = LoginResponseType.JSON;
+
+    /**
+     * 设置记住我时间
+     */
+    private int rememberMeSeconds = 120;
 
 }
