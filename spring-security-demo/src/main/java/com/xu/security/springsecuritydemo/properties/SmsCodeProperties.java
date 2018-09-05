@@ -1,33 +1,20 @@
 package com.xu.security.springsecuritydemo.properties;
 
+import lombok.Data;
+
 /**
  * @author xuhongda on 2018/9/5
  * com.xu.security.springsecuritydemo.properties
  * springSecurityJwt
  */
+@Data
 public class SmsCodeProperties {
 
     private int length = 6;
     private int expireIn = 60;
-
+    /**
+     * 需要验证码的url
+     */
     private String url;
 
-    public int getLength() {
-        return length;
-    }
-    public void setLength(int lenght) {
-        this.length = lenght;
-    }
-    public int getExpireIn() {
-        return expireIn;
-    }
-    public void setExpireIn(int expireIn) {
-        this.expireIn = expireIn;
-    }
-    public String getUrl() {
-        return url;
-    }
-    public void setUrl(String url) {
-        this.url = url;
-    }
 }

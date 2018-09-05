@@ -9,6 +9,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
+ * <p>
+ *     图形验证码生成器可选配置
+ * </p>
  * @author xuhongda on 2018/9/5
  * com.xu.security.springsecuritydemo.config
  * springSecurityJwt
@@ -19,6 +22,11 @@ public class ValidateCodeBeanConfig {
     @Autowired
     private SecurityProperties securityProperties;
 
+    /**
+     * 可选验证码生成器，容器先找是否有 imageValidateCodeGenerator
+     *
+     * @return
+     */
     @Bean
     @ConditionalOnMissingBean(name = "imageValidateCodeGenerator")
     public ValidateCodeGenerator imageValidateCodeGenerator() {

@@ -13,7 +13,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties(prefix = "com.xu")
 @Data
 public class SecurityProperties {
+
     private BrowserProperties browser = new BrowserProperties();
+
     private ValidateCodeProperties code = new ValidateCodeProperties();
 
 }

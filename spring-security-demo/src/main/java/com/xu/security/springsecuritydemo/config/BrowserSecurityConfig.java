@@ -3,6 +3,7 @@ package com.xu.security.springsecuritydemo.config;
 import com.xu.security.springsecuritydemo.returnHandler.MyAuthenctiationFailureHandler;
 import com.xu.security.springsecuritydemo.returnHandler.MyAuthenticationSuccessHandler;
 import com.xu.security.springsecuritydemo.properties.SecurityProperties;
+import com.xu.security.springsecuritydemo.validate.ValidateCodeFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package com.xu.security.springsecuritydemo.config;
+package com.xu.security.springsecuritydemo.validate;
 
 import com.xu.security.springsecuritydemo.core.SecurityConstants;
 import com.xu.security.springsecuritydemo.properties.SecurityProperties;
@@ -52,7 +52,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
      */
     private Map<String, ValidateCodeType> urlMap = new HashMap<>();
     /**
-     * 验证请求url与配置的url是否匹配的工具类
+     * ant 风格 验证请求url与配置的url是否匹配的工具类
      */
     private AntPathMatcher pathMatcher = new AntPathMatcher();
 
@@ -71,8 +71,9 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
     }
 
     /**
-     * 讲系统中配置的需要校验验证码的URL根据校验的类型放入map
      *
+     * 切割url
+     * 将系统中配置的需要校验验证码的URL根据校验的类型放入map
      * @param urlString
      * @param type
      */

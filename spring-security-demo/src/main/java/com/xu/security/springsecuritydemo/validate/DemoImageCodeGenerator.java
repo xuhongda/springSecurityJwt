@@ -1,5 +1,6 @@
 package com.xu.security.springsecuritydemo.validate;
 
+import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.ServletWebRequest;
 
 /**
@@ -7,8 +8,8 @@ import org.springframework.web.context.request.ServletWebRequest;
  * com.xu.security.springsecuritydemo.validate
  * springSecurityJwt
  */
+/*@Component("imageValidateCodeGenerator")*/
 public class DemoImageCodeGenerator implements ValidateCodeGenerator {
-
 
     @Override
     public ImageCode generate(ServletWebRequest request) {
