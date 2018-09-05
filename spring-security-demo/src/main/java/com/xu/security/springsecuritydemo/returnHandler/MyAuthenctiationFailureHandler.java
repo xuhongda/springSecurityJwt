@@ -40,7 +40,9 @@ public class MyAuthenctiationFailureHandler extends SimpleUrlAuthenticationFailu
                                         AuthenticationException exception) throws IOException, ServletException {
 
         logger.info("登录失败");
-
+        /**
+         * 判断是返回 JSON 还是 页面跳转
+         */
         if (LoginResponseType.JSON.equals(securityProperties.getBrowser().getLoginType())) {
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
             response.setContentType("application/json;charset=UTF-8");

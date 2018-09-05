@@ -36,11 +36,14 @@ public class MyAuthenticationSuccessHandler extends SavedRequestAwareAuthenticat
                                         Authentication authentication) throws IOException, ServletException {
 
         logger.info("登录成功");
-
+        /**
+         * 判断是返回 JSON 还是 页面跳转
+         */
         if (LoginResponseType.JSON.equals(securityProperties.getBrowser().getLoginType())) {
             response.setContentType("application/json;charset=UTF-8");
             response.getWriter().write(objectMapper.writeValueAsString(authentication));
         } else {
+            //父类跳转
             super.onAuthenticationSuccess(request, response, authentication);
         }
 
