@@ -1,4 +1,4 @@
-package com.xu.security.springsecuritydemo.controller.browser;
+package com.xu.security.springsecuritydemo.returnHandler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xu.security.springsecuritydemo.properties.SecurityProperties;

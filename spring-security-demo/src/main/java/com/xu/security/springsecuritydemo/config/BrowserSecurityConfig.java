@@ -1,7 +1,7 @@
 package com.xu.security.springsecuritydemo.config;
 
-import com.xu.security.springsecuritydemo.controller.browser.MyAuthenctiationFailureHandler;
-import com.xu.security.springsecuritydemo.controller.browser.MyAuthenticationSuccessHandler;
+import com.xu.security.springsecuritydemo.returnHandler.MyAuthenctiationFailureHandler;
+import com.xu.security.springsecuritydemo.returnHandler.MyAuthenticationSuccessHandler;
 import com.xu.security.springsecuritydemo.properties.SecurityProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

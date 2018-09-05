@@ -1,4 +1,4 @@
-package com.xu.security.springsecuritydemo.controller.browser;
+package com.xu.security.springsecuritydemo.returnHandler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.xu.security.springsecuritydemo.properties.SecurityProperties;
@@ -34,9 +34,7 @@ public class MyAuthenctiationFailureHandler extends SimpleUrlAuthenticationFailu
     private SecurityProperties securityProperties;
 
 
-    /* (non-Javadoc)
-     * @see org.springframework.security.web.authentication.AuthenticationFailureHandler#onAuthenticationFailure(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, org.springframework.security.core.AuthenticationException)
-     */
+
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
                                         AuthenticationException exception) throws IOException, ServletException {
