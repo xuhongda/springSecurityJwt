@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.config.annotation.builders.InMemoryClientDetailsServiceBuilder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
@@ -21,13 +22,15 @@ import java.util.List;
 
 /**
  * <p>
- *     token  自定义配置
+ * token  自定义配置
  * </p>
+ *
  * @author xuhongda on 2018/9/6
  * com.xu.springsecurityoauth.config
  * springSecurityJwt
  */
 @Configuration
+@EnableAuthorizationServer
 public class MyAuthenticationServerConfig extends AuthorizationServerConfigurerAdapter {
 
     /*
@@ -66,7 +69,9 @@ public class MyAuthenticationServerConfig extends AuthorizationServerConfigurerA
      */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        endpoints.tokenStore(jwtTokenStore)
+
+
+        endpoints.tokenStore(jwtTokenStore) //配置token储存方式
                 .authenticationManager(authenticationManager)
                 .userDetailsService(userDetailsService);
 
@@ -77,7 +82,7 @@ public class MyAuthenticationServerConfig extends AuthorizationServerConfigurerA
          *
          *  在这里拿到增强器的链，把这两个增强器连起来
          */
-        if(jwtAccessTokenConverter != null && jwtTokenEnhancer != null){
+        if (jwtAccessTokenConverter != null && jwtTokenEnhancer != null) {
             //拿到增强器链
             TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
 
@@ -94,10 +99,10 @@ public class MyAuthenticationServerConfig extends AuthorizationServerConfigurerA
 
     /**
      * 功能：认证服务器会给哪些第三方应用发令牌
-     *        覆盖了该方法，application.properties里配置的
-     *                 security.oauth2.client.clientId = imooc
-     *                security.oauth2.client.clientSecret = imoocsecret
-     *     就失效了
+     * 覆盖了该方法，application.properties里配置的
+     * security.oauth2.client.clientId = imooc
+     * security.oauth2.client.clientSecret = imoocsecret
+     * 就失效了
      */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
@@ -132,13 +137,13 @@ public class MyAuthenticationServerConfig extends AuthorizationServerConfigurerA
         //判断是否配置了客户端
 
 
-        if(ArrayUtils.isNotEmpty(mySecurityProperties.getMyOAuth2Properties().getMYOAuth2ClientProperties())){
+        if (ArrayUtils.isNotEmpty(mySecurityProperties.getMyOAuth2Properties().getMYOAuth2ClientProperties())) {
             for (MYOAuth2ClientProperties config : mySecurityProperties.getMyOAuth2Properties().getMYOAuth2ClientProperties()) {
                 builder.withClient(config.getClientId())
                         .secret(config.getClientSecret())
                         //.accessTokenValiditySeconds(600) //默认为0 令牌不会过期
-                        .authorizedGrantTypes("password","refresh_token") //这些也可以配置也可以写死，看心情
-                        .scopes("all","read","write");
+                        .authorizedGrantTypes("password", "refresh_token") //这些也可以配置也可以写死，看心情
+                        .scopes("all", "read", "write");
             }
         }
 

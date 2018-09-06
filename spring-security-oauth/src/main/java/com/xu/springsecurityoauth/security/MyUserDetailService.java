@@ -3,6 +3,7 @@ package com.xu.springsecurityoauth.security;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Component;
  * springSecurityJwt
  */
 @Component
+@Primary
 public class MyUserDetailService implements UserDetailsService , SocialUserDetailsService {
     private Logger logger = LoggerFactory.getLogger(getClass());
 

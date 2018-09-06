@@ -22,8 +22,6 @@ public class TokenStoreConfig {
     @Autowired
     private RedisConnectionFactory redisConnectionFactory;
 
-
-
     /**
      * 配置redis存储token
      * @Description: 配置文件有 com.xu.security.oauth2.storeType = redis 时才生效
