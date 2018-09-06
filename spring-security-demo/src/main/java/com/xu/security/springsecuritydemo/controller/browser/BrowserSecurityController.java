@@ -3,6 +3,7 @@
  */
 package com.xu.security.springsecuritydemo.controller.browser;
 
+import com.xu.security.springsecuritydemo.core.SecurityConstants;
 import com.xu.security.springsecuritydemo.properties.SecurityProperties;
 import com.xu.security.springsecuritydemo.support.SimpleResponse;
 import org.apache.commons.lang.StringUtils;
@@ -15,9 +16,12 @@ import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
+import org.springframework.social.connect.Connection;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.ServletWebRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -49,7 +53,7 @@ public class BrowserSecurityController {
 	 * @return
 	 * @throws IOException
 	 */
-	@RequestMapping("/myauthentication/require")
+	@RequestMapping(SecurityConstants.DEFAULT_UNAUTHENTICATION_URL)
 	@ResponseStatus(code = HttpStatus.UNAUTHORIZED)
 	public SimpleResponse requireAuthentication(HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
@@ -66,7 +70,6 @@ public class BrowserSecurityController {
 
 		return new SimpleResponse("访问的服务需要身份认证，请引导用户到登录页 ：http://localhost:port/login.html");
 	}
-
 
 
 }

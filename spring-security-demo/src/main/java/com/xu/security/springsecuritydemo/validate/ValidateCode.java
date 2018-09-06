@@ -1,13 +1,16 @@
 package com.xu.security.springsecuritydemo.validate;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
+ *
  * @author xuhongda on 2018/9/5
  * com.xu.security.springsecuritydemo.validate
  * springSecurityJwt
  */
-public class ValidateCode {
+//实现序列化，redis存放session
+public class ValidateCode implements Serializable {
 
     private String code;
 

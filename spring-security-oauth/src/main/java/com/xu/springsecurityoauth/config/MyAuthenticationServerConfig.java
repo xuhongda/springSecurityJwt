@@ -1,10 +1,9 @@
 package com.xu.springsecurityoauth.config;
 
-import com.xu.springsecurityoauth.security.MyUserDetailService;
+import com.xu.springsecurityoauth.propertites.MySecurityProperties;
+import com.xu.springsecurityoauth.propertites.MYOAuth2ClientProperties;
 import org.apache.commons.lang.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
-import org.springframework.boot.autoconfigure.security.oauth2.OAuth2ClientProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -21,6 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * <p>
+ *     token  自定义配置
+ * </p>
  * @author xuhongda on 2018/9/6
  * com.xu.springsecurityoauth.config
  * springSecurityJwt
@@ -36,15 +38,15 @@ public class MyAuthenticationServerConfig extends AuthorizationServerConfigurerA
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private MyUserDetailService myUserDetailService;
+    private UserDetailsService userDetailsService;
 
     //配置文件
-    /*@Autowired
-    private SecurityProperties securityProperties;*/
+    @Autowired
+    private MySecurityProperties mySecurityProperties;
 
     //token存在redis，默认是在内存
     @Autowired
-    private TokenStore tokenStore;
+    private TokenStore jwtTokenStore;
 
     /**
      * jwt需要的两个增强器之一：将uuid转换为jwt
@@ -64,9 +66,9 @@ public class MyAuthenticationServerConfig extends AuthorizationServerConfigurerA
      */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        endpoints.tokenStore(tokenStore)
+        endpoints.tokenStore(jwtTokenStore)
                 .authenticationManager(authenticationManager)
-                .userDetailsService(myUserDetailService);
+                .userDetailsService(userDetailsService);
 
         /**
          * 使用JWT ，有两个增强器：
@@ -100,43 +102,45 @@ public class MyAuthenticationServerConfig extends AuthorizationServerConfigurerA
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         //1，写死
-//        clients.jdbc(dataSource)就是qq场景用的，有第三方公司注册过来，目前场景是给自己的应用提供接口，所以用内存就行
-//        clients.inMemory()
-//                //~========================== 在这里配置和写配置文件一样================
-//                .withClient("imooc") //第三方应用用户名
-//                .secret("imoocsecret") //密码
-//                .accessTokenValiditySeconds(7200)//token有效期
-//                .authorizedGrantTypes("password","refresh_token") //支持的授权模式
-//                .scopes("all","read","write") //相当于oauth的权限，这里配置了，请求里的必须和这里匹配
-//                //~=======如果有多个client，这里继续配置
-//                .and()
-//                .withClient("xxxxx");
+        /*clients.jdbc(dataSource)就是qq场景用的，有第三方公司注册过来，目前场景是给自己的应用提供接口，所以用内存就行
+        clients.inMemory()
+                //~========================== 在这里配置和写配置文件一样================
+                .withClient("imooc") //第三方应用用户名
+                .secret("imoocsecret") //密码
+                .accessTokenValiditySeconds(7200)//token有效期
+                .authorizedGrantTypes("password","refresh_token") //支持的授权模式
+                .scopes("all","read","write") //相当于oauth的权限，这里配置了，请求里的必须和这里匹配
+                //~=======如果有多个client，这里继续配置
+                .and()
+                .withClient("xxxxx");*/
 
         //单个客户端配置
-        clients.inMemory()
-                .withClient("yd_cloud") //client_id  必填
-                .secret("kk6qZjmX")
-                .scopes("webapp") // 允许的授权范围，如果为空，则不限制范围
-                .authorizedGrantTypes("implicit", "refresh_token", "password", "authorization_code")//该client允许的授权类型,默认为空
+        /*clients.
+                inMemory()  //存在内存中
+                .withClient("xuhongda") //client_id  必填
+                .secret("7777")
+                .accessTokenValiditySeconds(300) //有效秒
+                .authorizedGrantTypes("implicit", "refresh_token", "password", "authorization_code") //该client允许的授权类型,默认为空
+                .scopes("webapp","read","write") // 允许的授权范围，如果发送请求不带，用这里配置的
                 .resourceIds("yd_web","smartparty","operation-api","property-api","yd_shop")
-                .autoApprove(true)
-        ;
+                .autoApprove(true);
+        */
 
 
         //2，读取配置文件
-        /*InMemoryClientDetailsServiceBuilder builder = clients.inMemory();
+        InMemoryClientDetailsServiceBuilder builder = clients.inMemory();
         //判断是否配置了客户端
-        String [] strings = new String[]{"xx","yy"};
 
-        if(ArrayUtils.isNotEmpty(strings)){
-            for (OAuth2ClientProperties config : securityProperties.getOauth2().getClients()) {
+
+        if(ArrayUtils.isNotEmpty(mySecurityProperties.getMyOAuth2Properties().getMYOAuth2ClientProperties())){
+            for (MYOAuth2ClientProperties config : mySecurityProperties.getMyOAuth2Properties().getMYOAuth2ClientProperties()) {
                 builder.withClient(config.getClientId())
                         .secret(config.getClientSecret())
-                        .accessTokenValiditySeconds(600)
+                        //.accessTokenValiditySeconds(600) //默认为0 令牌不会过期
                         .authorizedGrantTypes("password","refresh_token") //这些也可以配置也可以写死，看心情
                         .scopes("all","read","write");
             }
-        }*/
+        }
 
     }
 }
