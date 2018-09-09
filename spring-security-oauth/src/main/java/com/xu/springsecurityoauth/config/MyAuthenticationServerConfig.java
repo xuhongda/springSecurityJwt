@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  * <p>
- * token  自定义配置
+ * 不继承AuthorizationServerConfigurerAdapter，这些bean会自己找，配了，就要自己实现
  * </p>
  *
  * @author xuhongda on 2018/9/6
@@ -33,36 +33,38 @@ import java.util.List;
 @EnableAuthorizationServer
 public class MyAuthenticationServerConfig extends AuthorizationServerConfigurerAdapter {
 
-    /*
-     * 不继承AuthorizationServerConfigurerAdapter，这些bean会自己找，配了，就要自己实现
-     */
+    //使用构造器spring注入
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
 
-    @Autowired
-    private UserDetailsService userDetailsService;
+    private final UserDetailsService userDetailsService;
 
     //配置文件
-    @Autowired
-    private MySecurityProperties mySecurityProperties;
+    private final MySecurityProperties mySecurityProperties;
 
     //token改存在redis，默认是在内存
-    @Autowired
-    private TokenStore jwtTokenStore;
+    private final TokenStore jwtTokenStore;
 
     /**
      * jwt需要的两个增强器之一：将uuid转换为jwt
      * 有jwt配置时才生效
      */
-    @Autowired(required = false)
-    private JwtAccessTokenConverter jwtAccessTokenConverter;
+    private final JwtAccessTokenConverter jwtAccessTokenConverter;
 
     /**
      * jwt需要的两个增强器之二：往jwt添加自定义信息
      */
-    @Autowired(required = false)
-    private TokenEnhancer myTokenEnhancer;
+    private final TokenEnhancer myTokenEnhancer;
+
+    @Autowired
+    public MyAuthenticationServerConfig(AuthenticationManager authenticationManager, UserDetailsService userDetailsService, MySecurityProperties mySecurityProperties, TokenStore jwtTokenStore, JwtAccessTokenConverter jwtAccessTokenConverter, TokenEnhancer myTokenEnhancer) {
+        this.authenticationManager = authenticationManager;
+        this.userDetailsService = userDetailsService;
+        this.mySecurityProperties = mySecurityProperties;
+        this.jwtTokenStore = jwtTokenStore;
+        this.jwtAccessTokenConverter = jwtAccessTokenConverter;
+        this.myTokenEnhancer = myTokenEnhancer;
+    }
 
     /**
      * 配置TokenEndpoint 是  /oauth/token处理的入口点
@@ -135,8 +137,6 @@ public class MyAuthenticationServerConfig extends AuthorizationServerConfigurerA
         //2，读取配置文件
         InMemoryClientDetailsServiceBuilder builder = clients.inMemory();
         //判断是否配置了客户端
-
-
         if (ArrayUtils.isNotEmpty(mySecurityProperties.getMyOAuth2Properties().getMYOAuth2ClientProperties())) {
             for (MYOAuth2ClientProperties config : mySecurityProperties.getMyOAuth2Properties().getMYOAuth2ClientProperties()) {
                 builder.withClient(config.getClientId())
