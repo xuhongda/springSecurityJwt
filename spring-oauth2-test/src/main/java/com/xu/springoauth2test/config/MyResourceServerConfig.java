@@ -1,4 +1,4 @@
-package com.xu.springsecurityoauth.config;
+package com.xu.springoauth2test.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,11 +9,11 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 
 /**
- *
  * <p>
- *     Spring Security 中的ResourceServerConfigurerAdapter配置会
- *     覆盖WebSecurityConfigurerAdapter
+ * Spring Security 中的ResourceServerConfigurerAdapter配置会
+ * 覆盖WebSecurityConfigurerAdapter
  * </p>
+ *
  * @author xuhongda on 2018/9/6
  * com.xu.springsecurityoauth.config
  * springSecurityJwt
@@ -29,18 +29,10 @@ public class MyResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .exceptionHandling()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/xu", "/oauth/token").permitAll()
+                .antMatchers("/oauth/token", "xu").permitAll()
                 .antMatchers("/**").authenticated()
-                .and().formLogin().permitAll();
+                .and()
+                .httpBasic();
     }
 
-    /**
-     * 密码加密
-     *
-     * @return PasswordEncoder
-     */
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 }

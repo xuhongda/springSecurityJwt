@@ -24,8 +24,13 @@ import org.springframework.stereotype.Component;
 public class MyUserDetailService implements UserDetailsService , SocialUserDetailsService {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
+    private final PasswordEncoder passwordEncoder;
+
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    public MyUserDetailService(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         logger.info("表单登录用户名:" + username);

@@ -47,7 +47,7 @@ public class MyAuthenticationServerConfig extends AuthorizationServerConfigurerA
     @Autowired
     private MySecurityProperties mySecurityProperties;
 
-    //token存在redis，默认是在内存
+    //token改存在redis，默认是在内存
     @Autowired
     private TokenStore jwtTokenStore;
 
@@ -62,7 +62,7 @@ public class MyAuthenticationServerConfig extends AuthorizationServerConfigurerA
      * jwt需要的两个增强器之二：往jwt添加自定义信息
      */
     @Autowired(required = false)
-    private TokenEnhancer jwtTokenEnhancer;
+    private TokenEnhancer myTokenEnhancer;
 
     /**
      * 配置TokenEndpoint 是  /oauth/token处理的入口点
@@ -82,13 +82,13 @@ public class MyAuthenticationServerConfig extends AuthorizationServerConfigurerA
          *
          *  在这里拿到增强器的链，把这两个增强器连起来
          */
-        if (jwtAccessTokenConverter != null && jwtTokenEnhancer != null) {
+        if (jwtAccessTokenConverter != null && myTokenEnhancer != null) {
             //拿到增强器链
             TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
 
             List<TokenEnhancer> enhancers = new ArrayList<>();
             enhancers.add(jwtAccessTokenConverter);
-            enhancers.add(jwtTokenEnhancer);
+            enhancers.add(myTokenEnhancer);
 
             enhancerChain.setTokenEnhancers(enhancers);
 
