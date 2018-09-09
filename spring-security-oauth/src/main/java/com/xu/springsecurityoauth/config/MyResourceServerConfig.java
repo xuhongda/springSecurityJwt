@@ -30,8 +30,9 @@ public class MyResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/xu", "/oauth/token").permitAll()
-                .antMatchers("/**").authenticated()
-                .and().formLogin().permitAll();
+                .anyRequest().authenticated()
+                .and().httpBasic()
+        ;
     }
 
     /**

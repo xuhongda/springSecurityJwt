@@ -77,8 +77,8 @@ public class MyAuthenticationServerConfig extends AuthorizationServerConfigurerA
 
         /**
          * 使用JWT ，有两个增强器：
-         *     1，使用JwtAccessTokenConverter将uuid的token转为jwt，用秘钥签名
-         *  2，由于默认生成uuid token的方法是private，所以通过ImoocJwtTokenEnhancer 往jwt里添加一些自定义的信息
+         *  1，使用JwtAccessTokenConverter将uuid的token转为jwt，用秘钥签名
+         *  2，由于默认生成uuid token的方法是private，所以通过JwtTokenEnhancer 往jwt里添加一些自定义的信息
          *
          *  在这里拿到增强器的链，把这两个增强器连起来
          */
@@ -87,8 +87,8 @@ public class MyAuthenticationServerConfig extends AuthorizationServerConfigurerA
             TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
 
             List<TokenEnhancer> enhancers = new ArrayList<>();
-            enhancers.add(jwtAccessTokenConverter);
             enhancers.add(myTokenEnhancer);
+            enhancers.add(jwtAccessTokenConverter);
 
             enhancerChain.setTokenEnhancers(enhancers);
 
