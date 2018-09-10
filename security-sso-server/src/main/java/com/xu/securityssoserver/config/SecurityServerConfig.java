@@ -28,9 +28,9 @@ public class SecurityServerConfig extends AuthorizationServerConfigurerAdapter {
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.inMemory()
-                .withClient("xu")
-                .secret("7777")
-                .authorizedGrantTypes("authorization_code", "password", "refresh_token")
+                .withClient("xu_id")
+                .secret("7777_7")
+                .authorizedGrantTypes("authorization_code", "refresh_token")
                 .scopes("all")
         ;
     }

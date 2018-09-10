@@ -37,6 +37,7 @@ public class SsoWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        logger.info("xxx");
         http.formLogin().and().authorizeRequests().anyRequest().authenticated();
     }
 }
