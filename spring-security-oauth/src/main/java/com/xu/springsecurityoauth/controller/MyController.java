@@ -24,9 +24,13 @@ public class MyController {
         String authorization = request.getHeader("Authorization");
         String bearer = StringUtils.substringAfter(authorization, "bearer");
         //验签默认并不是使用utf-8
-        Claims xuhongda = Jwts.parser().setSigningKey("xuhongda".getBytes(StandardCharsets.UTF_8)).parseClaimsJws(bearer).getBody();
-        Object girl = xuhongda.get("girl");
-        System.out.println(girl);
+        Claims xuhongda;
+        if (bearer != null) {
+            xuhongda = Jwts.parser().setSigningKey("xuhongda".getBytes(StandardCharsets.UTF_8)).parseClaimsJws(bearer).getBody();
+            Object girl = xuhongda.get("girl");
+            System.out.println(girl);
+        }
+
         return authentication;
     }
 
