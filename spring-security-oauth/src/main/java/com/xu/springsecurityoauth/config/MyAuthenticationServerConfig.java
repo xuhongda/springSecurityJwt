@@ -49,21 +49,22 @@ public class MyAuthenticationServerConfig extends AuthorizationServerConfigurerA
      * jwt需要的两个增强器之一：将uuid转换为jwt
      * 有jwt配置时才生效
      */
-    private final JwtAccessTokenConverter jwtAccessTokenConverter;
+    @Autowired(required = false)
+    private JwtAccessTokenConverter jwtAccessTokenConverter;
 
     /**
      * jwt需要的两个增强器之二：往jwt添加自定义信息
      */
-    private final TokenEnhancer myTokenEnhancer;
+    @Autowired(required = false)
+    private TokenEnhancer myTokenEnhancer;
 
     @Autowired
-    public MyAuthenticationServerConfig(AuthenticationManager authenticationManager, UserDetailsService userDetailsService, MySecurityProperties mySecurityProperties, TokenStore jwtTokenStore, JwtAccessTokenConverter jwtAccessTokenConverter, TokenEnhancer myTokenEnhancer) {
+    public MyAuthenticationServerConfig(AuthenticationManager authenticationManager, UserDetailsService userDetailsService, MySecurityProperties mySecurityProperties, TokenStore jwtTokenStore) {
         this.authenticationManager = authenticationManager;
         this.userDetailsService = userDetailsService;
         this.mySecurityProperties = mySecurityProperties;
         this.jwtTokenStore = jwtTokenStore;
-        this.jwtAccessTokenConverter = jwtAccessTokenConverter;
-        this.myTokenEnhancer = myTokenEnhancer;
+
     }
 
     /**
@@ -143,9 +144,12 @@ public class MyAuthenticationServerConfig extends AuthorizationServerConfigurerA
                         .secret(config.getClientSecret())
                         //.accessTokenValiditySeconds(600) //默认为0 令牌不会过期
                         .authorizedGrantTypes("password", "refresh_token") //这些也可以配置也可以写死，看心情
+                        //.refreshTokenValiditySeconds()
                         .scopes("all", "read", "write");
             }
         }
 
     }
+
+
 }

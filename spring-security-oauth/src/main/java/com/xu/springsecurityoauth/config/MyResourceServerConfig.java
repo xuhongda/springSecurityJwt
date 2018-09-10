@@ -29,9 +29,8 @@ public class MyResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .exceptionHandling()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/xu", "/oauth/token").permitAll()
                 .anyRequest().authenticated()
-                .and().httpBasic()
+                .and().formLogin()
         ;
     }
 
