@@ -21,6 +21,8 @@ public class ResourceConfig extends ResourceServerConfigurerAdapter {
                 .exceptionHandling()
                 .and()
                 .authorizeRequests()
+                .antMatchers("/hello", "/test")
+                .permitAll()
                 .anyRequest().authenticated()
                 .and().formLogin()
         ;

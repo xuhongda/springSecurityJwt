@@ -10,16 +10,18 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
  * com.xu.securityssoserver.config
  * springSecurityJwt
  */
-@Configuration
-@EnableResourceServer
+/*@Configuration
+@EnableResourceServer*/
 public class SecurityResourceConfig extends ResourceServerConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/hello", "/", "/getUser/")
+                .antMatchers("/", "/getUser")
                 .permitAll()
                 .anyRequest()
-                .authenticated();
+                .authenticated()
+                .and()
+                .formLogin();
     }
 }

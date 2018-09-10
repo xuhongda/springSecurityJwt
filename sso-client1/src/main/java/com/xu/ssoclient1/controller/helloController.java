@@ -28,8 +28,10 @@ public class helloController {
     }
 
     @GetMapping("test")
-    public void login() {
+    @ResponseBody
+    public String login() {
         logger.info("test。。。");
+        return "test";
     }
 
     @ResponseBody

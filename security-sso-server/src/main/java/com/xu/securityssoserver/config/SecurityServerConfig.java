@@ -30,7 +30,9 @@ public class SecurityServerConfig extends AuthorizationServerConfigurerAdapter {
         clients.inMemory()
                 .withClient("xu_id")
                 .secret("7777_7")
+                //A redirect_uri can only be used by implicit or authorization_code grant types.
                 .authorizedGrantTypes("authorization_code", "refresh_token")
+                .accessTokenValiditySeconds(100)
                 .scopes("all")
         ;
     }
