@@ -51,6 +51,8 @@
     <modules>
         <module>spring-security-oauth</module>
         <module>spring-security-demo</module>
+        <module>security-sso-server</module>
+        <module>sso-client1</module>
     </modules>
 
 
