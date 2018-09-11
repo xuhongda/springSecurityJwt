@@ -14,7 +14,7 @@ public class SpringSecurityOauthApplicationTests {
     @Test
     public void contextLoads() {
 
-        System.out.println(getBasicAuthHeader("imooc1", "imoocsecrect1"));
+        System.out.println(getBasicAuthHeader("xuhongda", "7777_a"));
     }
 
 
