@@ -5,6 +5,7 @@ import com.xu.springsecurityoauth.service.LgAppService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.concurrent.TimeUnit;
@@ -43,7 +44,7 @@ public class LgAppServiceImpl implements LgAppService {
     }
 
     @Override
-    public LgResponse appVerify(String lgtoken, String jwt) {
+    public LgResponse appVerify(String lgtoken, Authentication authentication) {
 
         ValueOperations<String, Object> valueOperations = redisTemplate.opsForValue();
 
@@ -55,6 +56,7 @@ public class LgAppServiceImpl implements LgAppService {
         //解析jwt ;颁发一个新的jwt令牌...
 
         String newJwt = "this is .....a new jwt !!! ";
+        System.out.println(authentication.getPrincipal());
 
         if (aBoolean) {
             lgResponse.setABoolean(aBoolean);
@@ -71,6 +73,7 @@ public class LgAppServiceImpl implements LgAppService {
         }
         return lgResponse;
     }
+
 
     @Override
     public LgResponse appCancel(String lgtoken) {

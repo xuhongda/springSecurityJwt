@@ -1,14 +1,14 @@
 package com.xu.springsecurityoauth.controller;
 
 import com.xu.springsecurityoauth.pojo.LgResponse;
-import com.xu.springsecurityoauth.service.LgAppService;
 import com.xu.springsecurityoauth.service.impl.LgAppServiceImpl;
 import com.xu.springsecurityoauth.service.impl.LgServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.InputStream;
 
 /**
  * @author xuhongda on 2018/9/11
@@ -18,11 +18,15 @@ import java.io.InputStream;
 @RestController
 public class LoginController {
 
-    @Autowired
-    private LgAppServiceImpl lgAppService;
+    private final LgAppServiceImpl lgAppService;
+
+    private final LgServiceImpl lgService;
 
     @Autowired
-    private LgServiceImpl lgService;
+    public LoginController(LgAppServiceImpl lgAppService, LgServiceImpl lgService) {
+        this.lgAppService = lgAppService;
+        this.lgService = lgService;
+    }
 
     /**
      * web 端向server 端发起lgtoken 储存
@@ -31,11 +35,9 @@ public class LoginController {
      * @return LgResponse
      */
     @GetMapping("/saveLgtoken")
-    public LgResponse saveLgtoken(String lgtoken) {
+    public LgResponse saveLgtoken(@RequestParam String lgtoken) {
         //储存lgtoken
-        LgResponse lgResponse = lgService.saveLgToken(lgtoken);
-
-        return lgResponse;
+        return lgService.saveLgToken(lgtoken);
     }
 
 
@@ -46,11 +48,9 @@ public class LoginController {
      * @return LgResponse
      */
     @GetMapping("/qrcodelogin")
-    public LgResponse qrcodelogin(String lgtoken) {
-
+    public LgResponse qrcodelogin(@RequestParam String lgtoken) {
         //查询redis
-        LgResponse query = lgService.query(lgtoken);
-        return query;
+        return lgService.query(lgtoken);
     }
 
 
@@ -61,24 +61,22 @@ public class LoginController {
      * @return
      */
     @GetMapping("/applogin")
-    public LgResponse appLogin(String lgtoken) {
+    public LgResponse appLogin(@RequestParam String lgtoken) {
 
-        LgResponse lgResponse = lgAppService.appScanner(lgtoken);
+        return lgAppService.appScanner(lgtoken);
 
-        return lgResponse;
     }
 
     /**
      * app 确认登录
      *
      * @param lgtoken
-     * @param jwt
+     * @param authentication
      * @return
      */
     @GetMapping("/appVerify")
-    public LgResponse appVerify(String lgtoken, String jwt) {
-        LgResponse lgResponse = lgAppService.appVerify(lgtoken, jwt);
-        return lgResponse;
+    public LgResponse appVerify(@RequestParam String lgtoken, Authentication authentication) {
+        return lgAppService.appVerify(lgtoken, authentication);
     }
 
     /**
@@ -87,8 +85,7 @@ public class LoginController {
      * @return
      */
     @GetMapping("/appCancel")
-    public LgResponse appCancel(String lgtoken) {
-        LgResponse lgResponse = lgAppService.appCancel(lgtoken);
-        return lgResponse;
+    public LgResponse appCancel(@RequestParam String lgtoken) {
+        return lgAppService.appCancel(lgtoken);
     }
 }

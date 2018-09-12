@@ -1,6 +1,7 @@
 package com.xu.springsecurityoauth.service;
 
 import com.xu.springsecurityoauth.pojo.LgResponse;
+import org.springframework.security.core.Authentication;
 
 /**
  * <p>
@@ -26,10 +27,10 @@ public interface LgAppService {
      * APP 确认登录
      *
      * @param loToken
-     * @param jwt
+     * @param authentication
      * @return LgResponse
      */
-    LgResponse appVerify(String loToken, String jwt);
+    LgResponse appVerify(String loToken, Authentication authentication);
 
 
     /**
