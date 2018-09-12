@@ -24,7 +24,8 @@ public class LgServiceImpl implements LgService {
     public LgResponse saveLgToken(String lgToken) {
 
         ValueOperations<String, Object> valueOperations = redisTemplate.opsForValue();
-        valueOperations.set(lgToken, null, 45L, TimeUnit.SECONDS);
+
+        valueOperations.set(lgToken, null, 120L, TimeUnit.SECONDS);
 
         LgResponse lgResponse = new LgResponse();
 
@@ -39,7 +40,9 @@ public class LgServiceImpl implements LgService {
     public LgResponse query(String lgtoken) {
 
         ValueOperations<String, Object> valueOperations = redisTemplate.opsForValue();
+
         Boolean aBoolean = valueOperations.getOperations().hasKey(lgtoken);
+
 
         LgResponse response = (LgResponse) valueOperations.get(lgtoken);
 
@@ -49,7 +52,6 @@ public class LgServiceImpl implements LgService {
             }
         } else {
             LgResponse lgResponse = new LgResponse();
-
             lgResponse.setABoolean(aBoolean);
             lgResponse.setCode("0");
             return lgResponse;
