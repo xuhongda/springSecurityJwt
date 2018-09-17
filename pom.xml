@@ -53,6 +53,8 @@
         <module>spring-security-demo</module>
         <module>security-sso-server</module>
         <module>sso-client1</module>
+        <module>sso-client2</module>
+        <module>common-web</module>
     </modules>
 
 
