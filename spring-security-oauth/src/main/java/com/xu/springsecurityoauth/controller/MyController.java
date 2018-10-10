@@ -1,9 +1,12 @@
 package com.xu.springsecurityoauth.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,6 +21,8 @@ import java.nio.charset.StandardCharsets;
  */
 @RestController
 public class MyController {
+
+    ObjectMapper objectMapper = new ObjectMapper();
 
     @GetMapping("me")
     public Object me(Authentication authentication, HttpServletRequest request) throws UnsupportedEncodingException {
@@ -34,6 +39,8 @@ public class MyController {
         System.out.println(authentication.getCredentials());
         System.out.println(authentication.getDetails());
         System.out.println(authentication.getPrincipal());
+
+        OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) authentication.getDetails();
 
         System.out.println(authentication);
 

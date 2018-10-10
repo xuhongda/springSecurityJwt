@@ -42,8 +42,8 @@ public class TokenStoreConfig {
     /**
      * JWT配置
      * ClassName: JwtTokenConfig
-     * @Description:\
-     * @ConditionalOnProperty是说，有前缀com.xu.security.oauth2.storeType = jwt 的配置时，这个类里的配置才生效
+     * @Description:
+     * @ConditionalOnProperty 是说，有前缀com.xu.security.oauth2.storeType = jwt 的配置时，这个类里的配置才生效
      *     matchIfMissing =true 意思是当配置文件里不配置com.xu.security.oauth2.storeType = jwt时，配置是生效的
      * @author lihaoyang
      * @date 2018年3月16日
