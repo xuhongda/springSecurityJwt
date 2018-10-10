@@ -143,7 +143,7 @@ public class MyAuthenticationServerConfig extends AuthorizationServerConfigurerA
                 builder.withClient(config.getClientId())
                         .secret(config.getClientSecret())
                         //.accessTokenValiditySeconds(600) //默认为0 令牌不会过期
-                        .authorizedGrantTypes("password", "refresh_token") //这些也可以配置也可以写死，看心情
+                        .authorizedGrantTypes("password", "refresh_token")
                         //.refreshTokenValiditySeconds()
                         .scopes("all", "read", "write");
             }

@@ -20,7 +20,7 @@ import java.nio.charset.StandardCharsets;
 public class MyController {
 
     @GetMapping("me")
-    public Object xx(Authentication authentication, HttpServletRequest request) throws UnsupportedEncodingException {
+    public Object me(Authentication authentication, HttpServletRequest request) throws UnsupportedEncodingException {
         String authorization = request.getHeader("Authorization");
         String bearer = StringUtils.substringAfter(authorization, "bearer");
         //验签默认并不是使用utf-8

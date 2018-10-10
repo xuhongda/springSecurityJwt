@@ -65,7 +65,8 @@ public class TokenStoreConfig {
         @Bean
         public JwtAccessTokenConverter jwtAccessTokenConverter(){
             JwtAccessTokenConverter jwtAccessTokenConverter = new JwtAccessTokenConverter();
-            jwtAccessTokenConverter.setSigningKey("xuhongda");//指定jwt签名, token 发放安全性的保障
+            //指定jwt签名, token 发放安全性的保障
+            jwtAccessTokenConverter.setSigningKey("xuhongda");
             return jwtAccessTokenConverter;
         }
 
