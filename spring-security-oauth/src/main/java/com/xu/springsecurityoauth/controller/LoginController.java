@@ -29,7 +29,7 @@ public class LoginController {
     }
 
     /**
-     * web 端向server 端发起lgtoken 储存
+     * web 端向 server 端发起 lgtoken 储存
      * 设置四十秒过期时间
      *
      * @return LgResponse

@@ -14,10 +14,7 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 public class User {
-    private String username;
+    private String name;
     private String age;
-
-
 }
