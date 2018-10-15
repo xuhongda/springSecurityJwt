@@ -21,13 +21,13 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Primary
-public class MyUserDetailService implements UserDetailsService , SocialUserDetailsService {
+public class MyUserDetailServiceImpl implements UserDetailsService, SocialUserDetailsService {
     private Logger logger = LoggerFactory.getLogger(getClass());
 
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public MyUserDetailService(PasswordEncoder passwordEncoder) {
+    public MyUserDetailServiceImpl(PasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -48,7 +48,7 @@ public class MyUserDetailService implements UserDetailsService , SocialUserDetai
         // 根据用户名查找用户信息
         //根据查找到的用户信息判断用户是否被冻结
         String password = passwordEncoder.encode("123456");
-        logger.info("数据库密码是:"+password);
+        logger.info("数据库密码是:" + password);
 
         //返回用户完整信息
         return new SocialUser(userId, password,

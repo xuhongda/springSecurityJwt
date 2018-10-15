@@ -51,16 +51,10 @@ public class TokenStoreConfig {
     @Configuration
     @ConditionalOnProperty(prefix = "com.xu.security.oauth2" , name = "storeType" , havingValue = "jwt" , matchIfMissing = true)
     public static class JwtTokenConfig{
-
-        /*@Autowired
-        private SecurityProperties securityProperties;*/
-
-
         @Bean
         public TokenStore jwtTokenStore(){
             return new JwtTokenStore(jwtAccessTokenConverter());
         }
-
 
         @Bean
         public JwtAccessTokenConverter jwtAccessTokenConverter(){

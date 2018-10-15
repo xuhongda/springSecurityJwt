@@ -39,11 +39,24 @@ public class MyAuthenticationServerConfig extends AuthorizationServerConfigurerA
 
     private final UserDetailsService userDetailsService;
 
-    //配置文件
+    /**
+     * 配置文件
+     */
     private final MySecurityProperties mySecurityProperties;
 
-    //token改存在redis，默认是在内存
+    /**
+     * token改存在redis，默认是在内存
+     */
     private final TokenStore jwtTokenStore;
+
+    @Autowired
+    public MyAuthenticationServerConfig(AuthenticationManager authenticationManager, UserDetailsService userDetailsService, MySecurityProperties mySecurityProperties, TokenStore jwtTokenStore) {
+        this.authenticationManager = authenticationManager;
+        this.userDetailsService = userDetailsService;
+        this.mySecurityProperties = mySecurityProperties;
+        this.jwtTokenStore = jwtTokenStore;
+
+    }
 
     /**
      * jwt需要的两个增强器之一：将uuid转换为jwt
@@ -58,23 +71,14 @@ public class MyAuthenticationServerConfig extends AuthorizationServerConfigurerA
     @Autowired(required = false)
     private TokenEnhancer myTokenEnhancer;
 
-    @Autowired
-    public MyAuthenticationServerConfig(AuthenticationManager authenticationManager, UserDetailsService userDetailsService, MySecurityProperties mySecurityProperties, TokenStore jwtTokenStore) {
-        this.authenticationManager = authenticationManager;
-        this.userDetailsService = userDetailsService;
-        this.mySecurityProperties = mySecurityProperties;
-        this.jwtTokenStore = jwtTokenStore;
-
-    }
-
     /**
      * 配置TokenEndpoint 是  /oauth/token处理的入口点
      */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
 
-
-        endpoints.tokenStore(jwtTokenStore) //配置token储存方式
+        //配置token储存方式
+        endpoints.tokenStore(jwtTokenStore)
                 .authenticationManager(authenticationManager)
                 .userDetailsService(userDetailsService);
 
@@ -88,15 +92,11 @@ public class MyAuthenticationServerConfig extends AuthorizationServerConfigurerA
         if (jwtAccessTokenConverter != null && myTokenEnhancer != null) {
             //拿到增强器链
             TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
-
             List<TokenEnhancer> enhancers = new ArrayList<>();
             enhancers.add(myTokenEnhancer);
             enhancers.add(jwtAccessTokenConverter);
-
             enhancerChain.setTokenEnhancers(enhancers);
-
-            endpoints.tokenEnhancer(enhancerChain)
-                    .accessTokenConverter(jwtAccessTokenConverter);
+            endpoints.tokenEnhancer(enhancerChain).accessTokenConverter(jwtAccessTokenConverter);
         }
     }
 
@@ -106,34 +106,35 @@ public class MyAuthenticationServerConfig extends AuthorizationServerConfigurerA
      * security.oauth2.client.clientId = imooc
      * security.oauth2.client.clientSecret = imoocsecret
      * 就失效了
+     * <p>
+     *     1，写死
+     *               clients.jdbc(dataSource)就是qq场景用的，有第三方公司注册过来，目前场景是给自己的应用提供接口，所以用内存就行
+     *               clients.inMemory()
+     *                       //~========================== 在这里配置和写配置文件一样================
+     *                       .withClient("imooc") //第三方应用用户名
+     *                       .secret("imoocsecret") //密码
+     *                       .accessTokenValiditySeconds(7200)//token有效期
+     *                       .authorizedGrantTypes("password","refresh_token") //支持的授权模式
+     *                       .scopes("all","read","write") //相当于oauth的权限，这里配置了，请求里的必须和这里匹配
+     *                       //~=======如果有多个client，这里继续配置
+     *                       .and()
+     *                       .withClient("xxxxx");
+     * </p>
+     * <p>
+     *       //单个客户端配置
+     *                   clients.
+     *                        inMemory()  //存在内存中
+     *                        .withClient("xuhongda") //client_id  必填
+     *                        .secret("7777")
+     *                        .accessTokenValiditySeconds(300) //有效秒
+     *                        .authorizedGrantTypes("implicit", "refresh_token", "password", "authorization_code") //该client允许的授权类型,默认为空
+     *                        .scopes("webapp","read","write") // 允许的授权范围，如果发送请求不带，用这里配置的
+     *                        .resourceIds("yd_web","smartparty","operation-api","property-api","yd_shop")
+     *                        .autoApprove(true);
+     * </p>
      */
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        //1，写死
-        /*clients.jdbc(dataSource)就是qq场景用的，有第三方公司注册过来，目前场景是给自己的应用提供接口，所以用内存就行
-        clients.inMemory()
-                //~========================== 在这里配置和写配置文件一样================
-                .withClient("imooc") //第三方应用用户名
-                .secret("imoocsecret") //密码
-                .accessTokenValiditySeconds(7200)//token有效期
-                .authorizedGrantTypes("password","refresh_token") //支持的授权模式
-                .scopes("all","read","write") //相当于oauth的权限，这里配置了，请求里的必须和这里匹配
-                //~=======如果有多个client，这里继续配置
-                .and()
-                .withClient("xxxxx");*/
-
-        //单个客户端配置
-        /*clients.
-                inMemory()  //存在内存中
-                .withClient("xuhongda") //client_id  必填
-                .secret("7777")
-                .accessTokenValiditySeconds(300) //有效秒
-                .authorizedGrantTypes("implicit", "refresh_token", "password", "authorization_code") //该client允许的授权类型,默认为空
-                .scopes("webapp","read","write") // 允许的授权范围，如果发送请求不带，用这里配置的
-                .resourceIds("yd_web","smartparty","operation-api","property-api","yd_shop")
-                .autoApprove(true);
-        */
-
 
         //2，读取配置文件
         InMemoryClientDetailsServiceBuilder builder = clients.inMemory();
