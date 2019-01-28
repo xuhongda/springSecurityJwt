@@ -10,7 +10,7 @@ import java.util.Map;
  * com.xu.web.token
  * springSecurityJwt
  */
-public class MyTokenConvter extends DefaultAccessTokenConverter {
+public class MyTokenConvert extends DefaultAccessTokenConverter {
 
     @Override
     public OAuth2Authentication extractAuthentication(Map<String, ?> claims) {

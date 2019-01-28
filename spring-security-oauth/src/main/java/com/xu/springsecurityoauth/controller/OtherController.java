@@ -1,4 +1,4 @@
-package com.xu.web.controller;
+package com.xu.springsecurityoauth.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -11,28 +11,21 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Map;
 
 /**
- * @author xuhongda on 2018/10/23
- * com.xu.web.controller
+ * @author xuhongda on 2019/1/28
+ * com.xu.springsecurityoauth.controller
  * springSecurityJwt
  */
 @Slf4j
 @RestController
-public class AboutToken {
-    /**
-     * 自定义TokenConvert - token 转换器 获得信息
-     *
-     * @param authentication 认证对象
-     */
+public class OtherController {
+    private ObjectMapper mapper = new ObjectMapper();
+
     @GetMapping("about")
     public Object about(Authentication authentication) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
         OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) authentication.getDetails();
-        String tokenValue = details.getTokenValue();
-        log.info("tokenValue = {}", tokenValue);
         Map<String, Object> detail = (Map<String, Object>) details.getDecodedDetails();
-        Object girl = detail.get("girl");
-        log.info(mapper.writeValueAsString(authentication));
-        log.info("girl = {}", girl);
+        log.info("authentication = {}", mapper.writeValueAsString(authentication));
+        log.info("details = {}", details);
         return detail;
     }
 }

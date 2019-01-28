@@ -33,13 +33,13 @@ public class MyUserDetailServiceImpl implements UserDetailsService, SocialUserDe
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        logger.info("表单登录用户名:" + username);
+        logger.info("表单登录用户名={}", username);
         return buildUser(username);
     }
 
     @Override
     public SocialUserDetails loadUserByUserId(String userId) throws UsernameNotFoundException {
-        logger.info("设计登录用户Id:" + userId);
+        logger.info("设计登录用户Id={}", userId);
         return buildUser(userId);
     }
 
@@ -48,7 +48,7 @@ public class MyUserDetailServiceImpl implements UserDetailsService, SocialUserDe
         // 根据用户名查找用户信息
         //根据查找到的用户信息判断用户是否被冻结
         String password = passwordEncoder.encode("123456");
-        logger.info("数据库密码是:" + password);
+        logger.info("数据库密码是={}", password);
 
         //返回用户完整信息
         return new SocialUser(userId, password,

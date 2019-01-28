@@ -11,8 +11,8 @@ import lombok.Data;
  * springSecurityJwt
  */
 @Data
-public class MyOAuth2Properties {
+public class MyOauth2Properties {
 
-    private MYOAuth2ClientProperties[] MYOAuth2ClientProperties = {};
+    private MyOauth2ClientProperties[] MYOAuth2ClientProperties = {};
 
 }

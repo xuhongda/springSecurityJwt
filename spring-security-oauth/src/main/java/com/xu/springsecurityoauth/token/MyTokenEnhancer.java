@@ -17,9 +17,9 @@ public class MyTokenEnhancer implements TokenEnhancer {
     @Override
     public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
         //往jwt添加的自定义信息
-        Map<String , Object> info = new HashMap<>();
+        Map<String, Object> info = new HashMap<>(16);
         info.put("girl", "yan");
-        info.put("home", "jiangxi");
+        info.put("home", "JiangXi");
         ((DefaultOAuth2AccessToken)accessToken).setAdditionalInformation(info);
         return accessToken;
     }
