@@ -1,5 +1,6 @@
 package com.xu.springsecurityoauth.http;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,13 +8,14 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 
 /**
  * @author xuhongda on 2018/9/6
  * com.xu.springsecurityoauth.http
  * springSecurityJwt
  */
+@Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class OAuthTest {
@@ -31,19 +33,13 @@ public class OAuthTest {
     }
 
     /**
-     * 构建header
-     *
-     * @return
+     * 构建获取token header
      */
     private String getBasicAuthHeader() {
         String auth = CLIENT_ID + ":" + CLIENT_SECRET;
-        byte[] encodedAuth;
-        try {
-            encodedAuth = Base64.encodeBase64(auth.getBytes("UTF-8"));
-        } catch (UnsupportedEncodingException var5) {
-            throw new RuntimeException(var5);
-        }
+        byte[] encodedAuth = Base64.encodeBase64(auth.getBytes(StandardCharsets.UTF_8));
         String authHeader = "Basic " + new String(encodedAuth);
+        log.info("authHeader = {}", authHeader);
         return authHeader;
     }
 }
