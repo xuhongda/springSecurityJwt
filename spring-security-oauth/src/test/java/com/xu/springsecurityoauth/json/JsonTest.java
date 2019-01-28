@@ -1,6 +1,7 @@
 package com.xu.springsecurityoauth.json;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 /**
@@ -8,18 +9,15 @@ import org.junit.Test;
  * com.xu.springsecurityoauth.json
  * springSecurityJwt
  */
+@Slf4j
 public class JsonTest {
-    ObjectMapper objectMapper = new ObjectMapper();
+
+    private ObjectMapper mapper = new ObjectMapper();
 
     @Test
     public void test1() throws Exception {
         String json = "";
-        String s = objectMapper.writeValueAsString(json);
-        System.out.println(s);
+        log.info(mapper.writeValueAsString(json));
     }
 
-    @Test
-    public void test2() {
-        System.out.println("test");
-    }
 }
