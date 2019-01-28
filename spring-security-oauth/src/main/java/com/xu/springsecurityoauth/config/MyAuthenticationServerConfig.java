@@ -1,7 +1,7 @@
 package com.xu.springsecurityoauth.config;
 
+import com.xu.springsecurityoauth.propertites.MyOauth2ClientProperties;
 import com.xu.springsecurityoauth.propertites.MySecurityProperties;
-import com.xu.springsecurityoauth.propertites.MYOAuth2ClientProperties;
 import org.apache.commons.lang.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -140,7 +140,7 @@ public class MyAuthenticationServerConfig extends AuthorizationServerConfigurerA
         InMemoryClientDetailsServiceBuilder builder = clients.inMemory();
         //判断是否配置了客户端
         if (ArrayUtils.isNotEmpty(mySecurityProperties.getMyOAuth2Properties().getMYOAuth2ClientProperties())) {
-            for (MYOAuth2ClientProperties config : mySecurityProperties.getMyOAuth2Properties().getMYOAuth2ClientProperties()) {
+            for (MyOauth2ClientProperties config : mySecurityProperties.getMyOAuth2Properties().getMYOAuth2ClientProperties()) {
                 builder.withClient(config.getClientId())
                         .secret(config.getClientSecret())
                         //.accessTokenValiditySeconds(600) //默认为0 令牌不会过期

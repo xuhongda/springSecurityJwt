@@ -18,10 +18,10 @@ import java.io.UnsupportedEncodingException;
 @SpringBootTest
 public class OAuthTest {
 
-    @Value("${com.xu.myOAuth2Properties.MYOAuth2ClientProperties[1].clientId}")
+    @Value("${com.xu.myOAuth2Properties.MyOauth2ClientProperties[1].clientId}")
     private String CLIENT_ID;
 
-    @Value("${com.xu.myOAuth2Properties.MYOAuth2ClientProperties[1].clientSecret}")
+    @Value("${com.xu.myOAuth2Properties.MyOauth2ClientProperties[1].clientSecret}")
     private String CLIENT_SECRET;
 
     @Test
