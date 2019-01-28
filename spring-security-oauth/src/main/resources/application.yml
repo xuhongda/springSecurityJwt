@@ -3,19 +3,15 @@ server:
 spring:
   session:
     store-type: redis
-
 #TOKEN client
 com:
   xu:
-    security:
-      oauth2:
-        storeType: jwt
     myOAuth2Properties:
-      MyOAuth2ClientProperties[1]:
+      MYOAuth2ClientProperties[1]:
         clientId: xuhongda
         clientSecret: 7777_a
         accessTokenValiditySeconds: 7777
-      MyOAuth2ClientProperties[2]:
+      MYOAuth2ClientProperties[2]:
         clientId: yan
         clientSecret: 8888
         accessTokenValiditySeconds: 8888
