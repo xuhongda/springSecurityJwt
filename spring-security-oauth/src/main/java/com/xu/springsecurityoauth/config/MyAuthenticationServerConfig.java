@@ -12,6 +12,7 @@ import org.springframework.security.oauth2.config.annotation.configurers.ClientD
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationManager;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
@@ -35,7 +36,7 @@ public class MyAuthenticationServerConfig extends AuthorizationServerConfigurerA
 
     //使用构造器spring注入
 
-    private final AuthenticationManager authenticationManager;
+    //private final AuthenticationManager authenticationManager;
 
     private final UserDetailsService userDetailsService;
 
@@ -50,8 +51,7 @@ public class MyAuthenticationServerConfig extends AuthorizationServerConfigurerA
     private final TokenStore jwtTokenStore;
 
     @Autowired
-    public MyAuthenticationServerConfig(AuthenticationManager authenticationManager, UserDetailsService userDetailsService, MySecurityProperties mySecurityProperties, TokenStore jwtTokenStore) {
-        this.authenticationManager = authenticationManager;
+    public MyAuthenticationServerConfig(UserDetailsService userDetailsService, MySecurityProperties mySecurityProperties, TokenStore jwtTokenStore) {
         this.userDetailsService = userDetailsService;
         this.mySecurityProperties = mySecurityProperties;
         this.jwtTokenStore = jwtTokenStore;
@@ -82,7 +82,7 @@ public class MyAuthenticationServerConfig extends AuthorizationServerConfigurerA
      */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-
+        AuthenticationManager authenticationManager = new OAuth2AuthenticationManager();
         //配置token储存方式
         endpoints.tokenStore(jwtTokenStore)
                 .authenticationManager(authenticationManager)
@@ -139,8 +139,8 @@ public class MyAuthenticationServerConfig extends AuthorizationServerConfigurerA
         //2，读取配置文件
         InMemoryClientDetailsServiceBuilder builder = clients.inMemory();
         //判断是否配置了客户端
-        if (ArrayUtils.isNotEmpty(mySecurityProperties.getMyOAuth2Properties().getMYOAuth2ClientProperties())) {
-            for (MyOauth2ClientProperties config : mySecurityProperties.getMyOAuth2Properties().getMYOAuth2ClientProperties()) {
+        if (ArrayUtils.isNotEmpty(mySecurityProperties.getMyOAuth2Properties().getMyOauth2ClientProperties())) {
+            for (MyOauth2ClientProperties config : mySecurityProperties.getMyOAuth2Properties().getMyOauth2ClientProperties()) {
                 builder.withClient(config.getClientId())
                         .secret(config.getClientSecret())
                         //.accessTokenValiditySeconds(600) //默认为0 令牌不会过期

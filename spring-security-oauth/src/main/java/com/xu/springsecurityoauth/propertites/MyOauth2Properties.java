@@ -13,6 +13,6 @@ import lombok.Data;
 @Data
 public class MyOauth2Properties {
 
-    private MyOauth2ClientProperties[] MYOAuth2ClientProperties = {};
+    private MyOauth2ClientProperties[] MyOauth2ClientProperties = {};
 
 }

@@ -7,11 +7,11 @@ spring:
 com:
   xu:
     myOAuth2Properties:
-      MYOAuth2ClientProperties[1]:
+      MyOauth2ClientProperties[1]:
         clientId: xuhongda
         clientSecret: 7777_a
         accessTokenValiditySeconds: 7777
-      MYOAuth2ClientProperties[2]:
+      MyOauth2ClientProperties[2]:
         clientId: yan
         clientSecret: 8888
         accessTokenValiditySeconds: 8888
