@@ -4,10 +4,15 @@ import com.xu.springsecurityoauth.propertites.MyOauth2ClientProperties;
 import com.xu.springsecurityoauth.propertites.MySecurityProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AnonymousAuthenticationProvider;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.builders.InMemoryClientDetailsServiceBuilder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -37,9 +42,8 @@ import java.util.List;
 @EnableAuthorizationServer
 public class MyAuthenticationServerConfig extends AuthorizationServerConfigurerAdapter {
 
-    //使用构造器spring注入
     @Autowired
-    private AuthenticationManager authenticationManager;
+    private ProviderManager providerManager;
 
     private final UserDetailsService userDetailsService;
 
@@ -85,11 +89,10 @@ public class MyAuthenticationServerConfig extends AuthorizationServerConfigurerA
      */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        OAuth2AuthenticationManager oAuth2AuthenticationManager = new OAuth2AuthenticationManager();
-        log.info("b = {}", authenticationManager instanceof ProviderManager);
+
         //配置token储存方式
         endpoints.tokenStore(jwtTokenStore)
-                .authenticationManager(authenticationManager)
+                .authenticationManager(providerManager)
                 .userDetailsService(userDetailsService);
 
         //增强器
