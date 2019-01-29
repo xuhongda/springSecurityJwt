@@ -1,6 +1,11 @@
 package com.xu.springsecurityoauth.propertites;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+import java.util.List;
 
 /**
  * <p>
@@ -11,8 +16,11 @@ import lombok.Data;
  * springSecurityJwt
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class MyOauth2Properties {
 
-    private MyOauth2ClientProperties[] MyOauth2ClientProperties = {};
+    private List<MyOauth2ClientProperties> myOauth2ClientProperties;
 
 }

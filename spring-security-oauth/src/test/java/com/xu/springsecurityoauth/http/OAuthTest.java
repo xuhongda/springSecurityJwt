@@ -20,10 +20,10 @@ import java.nio.charset.StandardCharsets;
 @SpringBootTest
 public class OAuthTest {
 
-    @Value("${com.xu.myOAuth2Properties.MyOauth2ClientProperties[1].clientId}")
+    @Value("${com.xu.myOauth2Properties.myOauth2ClientProperties[0].clientId}")
     private String CLIENT_ID;
 
-    @Value("${com.xu.myOAuth2Properties.MyOauth2ClientProperties[1].clientSecret}")
+    @Value("${com.xu.myOauth2Properties.myOauth2ClientProperties[0].clientSecret}")
     private String CLIENT_SECRET;
 
     @Test

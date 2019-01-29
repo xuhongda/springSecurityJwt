@@ -2,10 +2,11 @@ package com.xu.springsecurityoauth.config;
 
 import com.xu.springsecurityoauth.propertites.MyOauth2ClientProperties;
 import com.xu.springsecurityoauth.propertites.MySecurityProperties;
-import org.apache.commons.lang.ArrayUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.config.annotation.builders.InMemoryClientDetailsServiceBuilder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
@@ -18,6 +19,7 @@ import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,13 +32,14 @@ import java.util.List;
  * com.xu.springsecurityoauth.config
  * springSecurityJwt
  */
+@Slf4j
 @Configuration
 @EnableAuthorizationServer
 public class MyAuthenticationServerConfig extends AuthorizationServerConfigurerAdapter {
 
     //使用构造器spring注入
-
-    //private final AuthenticationManager authenticationManager;
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
     private final UserDetailsService userDetailsService;
 
@@ -82,7 +85,8 @@ public class MyAuthenticationServerConfig extends AuthorizationServerConfigurerA
      */
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
-        AuthenticationManager authenticationManager = new OAuth2AuthenticationManager();
+        OAuth2AuthenticationManager oAuth2AuthenticationManager = new OAuth2AuthenticationManager();
+        log.info("b = {}", authenticationManager instanceof ProviderManager);
         //配置token储存方式
         endpoints.tokenStore(jwtTokenStore)
                 .authenticationManager(authenticationManager)
@@ -139,8 +143,9 @@ public class MyAuthenticationServerConfig extends AuthorizationServerConfigurerA
         //2，读取配置文件
         InMemoryClientDetailsServiceBuilder builder = clients.inMemory();
         //判断是否配置了客户端
-        if (ArrayUtils.isNotEmpty(mySecurityProperties.getMyOAuth2Properties().getMyOauth2ClientProperties())) {
-            for (MyOauth2ClientProperties config : mySecurityProperties.getMyOAuth2Properties().getMyOauth2ClientProperties()) {
+        List<MyOauth2ClientProperties> myOauth2ClientProperties = mySecurityProperties.getMyOauth2Properties().getMyOauth2ClientProperties();
+        if (!myOauth2ClientProperties.isEmpty()) {
+            for (MyOauth2ClientProperties config : myOauth2ClientProperties) {
                 builder.withClient(config.getClientId())
                         .secret(config.getClientSecret())
                         //.accessTokenValiditySeconds(600) //默认为0 令牌不会过期

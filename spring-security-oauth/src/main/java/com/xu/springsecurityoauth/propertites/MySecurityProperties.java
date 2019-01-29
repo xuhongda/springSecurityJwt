@@ -14,6 +14,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class MySecurityProperties {
 
-    private MyOauth2Properties myOAuth2Properties = new MyOauth2Properties();
+    private MyOauth2Properties myOauth2Properties = new MyOauth2Properties();
 
 }
