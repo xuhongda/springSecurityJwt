@@ -10,8 +10,8 @@ com:
   xu:
     myOauth2Properties:
       myOauth2ClientProperties[0]:
-        clientId: xuhongda
-        clientSecret: 7777
+        clientId: reader
+        clientSecret: noopsecret
       myOauth2ClientProperties[1]:
         clientId: yan
         clientSecret: 1212

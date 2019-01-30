@@ -22,7 +22,6 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 @EnableResourceServer
 public class MyResourceServerConfig extends ResourceServerConfigurerAdapter {
 
-
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
@@ -34,13 +33,4 @@ public class MyResourceServerConfig extends ResourceServerConfigurerAdapter {
         ;
     }
 
-    /**
-     * 密码加密
-     *
-     * @return PasswordEncoder
-     */
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 }
