@@ -4,14 +4,13 @@ spring:
   session:
     store-type: redis
 #TOKEN client
-
-
 com:
   xu:
     myOauth2Properties:
       myOauth2ClientProperties[0]:
-        clientId: reader
-        clientSecret: noopsecret
+        clientId: xuhongda
+        clientSecret: 7777
+        accessTokenValiditySeconds: 60000
       myOauth2ClientProperties[1]:
         clientId: yan
         clientSecret: 1212
