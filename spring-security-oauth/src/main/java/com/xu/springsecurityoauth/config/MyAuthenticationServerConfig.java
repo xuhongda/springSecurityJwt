@@ -1,30 +1,22 @@
 package com.xu.springsecurityoauth.config;
 
-import com.xu.springsecurityoauth.convert.SubjectAttributeUserTokenConverter;
+
 import com.xu.springsecurityoauth.propertites.MyOauth2ClientProperties;
 import com.xu.springsecurityoauth.propertites.MySecurityProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.oauth2.config.annotation.builders.InMemoryClientDetailsServiceBuilder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
-import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
-import org.springframework.security.oauth2.provider.token.TokenEnhancer;
-import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
-import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
-import java.security.KeyPair;
-import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * <p>
@@ -47,6 +39,9 @@ public class MyAuthenticationServerConfig extends AuthorizationServerConfigurerA
     private final JwtTokenStore jwtTokenStore;
 
     @Autowired
+    private MySecurityProperties mySecurityProperties;
+
+    @Autowired
     public MyAuthenticationServerConfig(
             AuthenticationConfiguration authenticationConfiguration,
             JwtAccessTokenConverter jwtAccessTokenConverter, JwtTokenStore jwtTokenStore) throws Exception {
@@ -59,13 +54,14 @@ public class MyAuthenticationServerConfig extends AuthorizationServerConfigurerA
     @Override
     public void configure(ClientDetailsServiceConfigurer clients)
             throws Exception {
+        List<MyOauth2ClientProperties> myOauth2ClientProperties = mySecurityProperties.getMyOauth2Properties().getMyOauth2ClientProperties();
         // @formatter:off
         clients.inMemory()
-                .withClient("reader")
+                .withClient(myOauth2ClientProperties.get(0).getClientId())
                 .authorizedGrantTypes("password")
-                .secret("{noop}secret")
-                .scopes("message:read")
-                .accessTokenValiditySeconds(600_000_000)
+                .secret(myOauth2ClientProperties.get(0).getClientSecret())
+                .scopes(myOauth2ClientProperties.get(0).getScopes())
+                .accessTokenValiditySeconds(myOauth2ClientProperties.get(0).getAccessTokenValiditySeconds())
                 .and()
                 .withClient("writer")
                 .authorizedGrantTypes("password")
