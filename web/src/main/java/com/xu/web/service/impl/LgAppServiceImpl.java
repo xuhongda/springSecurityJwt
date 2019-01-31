@@ -1,7 +1,7 @@
-package com.xu.springsecurityoauth.service.impl;
+package com.xu.web.service.impl;
 
-import com.xu.springsecurityoauth.pojo.LgResponse;
-import com.xu.springsecurityoauth.service.LgAppService;
+import com.xu.web.pojo.LgResponse;
+import com.xu.web.service.LgAppService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author xuhongda on 2018/9/11
- * com.xu.springsecurityoauth.service.impl
+ * com.xu.web.service.impl
  * springSecurityJwt
  */
 @Service

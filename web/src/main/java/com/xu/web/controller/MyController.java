@@ -1,4 +1,4 @@
-package com.xu.springsecurityoauth.controller;
+package com.xu.web.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;
@@ -15,7 +15,7 @@ import java.nio.charset.StandardCharsets;
 
 /**
  * @author xuhongda on 2018/9/9
- * com.xu.springsecurityoauth.controller
+ * com.xu.web.controller
  * springSecurityJwt
  */
 @RestController

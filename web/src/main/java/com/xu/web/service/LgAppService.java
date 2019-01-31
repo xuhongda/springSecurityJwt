@@ -1,6 +1,6 @@
-package com.xu.springsecurityoauth.service;
+package com.xu.web.service;
 
-import com.xu.springsecurityoauth.pojo.LgResponse;
+import com.xu.web.pojo.LgResponse;
 import org.springframework.security.core.Authentication;
 
 /**
@@ -9,7 +9,7 @@ import org.springframework.security.core.Authentication;
  * </p>
  *
  * @author xuhongda on 2018/9/11
- * com.xu.springsecurityoauth.service
+ * com.xu.web.service
  * springSecurityJwt
  */
 

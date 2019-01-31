@@ -1,8 +1,8 @@
-package com.xu.springsecurityoauth.controller;
+package com.xu.web.controller;
 
-import com.xu.springsecurityoauth.pojo.LgResponse;
-import com.xu.springsecurityoauth.service.impl.LgAppServiceImpl;
-import com.xu.springsecurityoauth.service.impl.LgServiceImpl;
+import com.xu.web.pojo.LgResponse;
+import com.xu.web.service.impl.LgAppServiceImpl;
+import com.xu.web.service.impl.LgServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author xuhongda on 2018/9/11
- * com.xu.springsecurityoauth.controller
+ * com.xu.web.controller
  * springSecurityJwt
  */
 @RestController

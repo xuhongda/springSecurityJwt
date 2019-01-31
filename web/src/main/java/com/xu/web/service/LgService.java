@@ -1,6 +1,6 @@
-package com.xu.springsecurityoauth.service;
+package com.xu.web.service;
 
-import com.xu.springsecurityoauth.pojo.LgResponse;
+import com.xu.web.pojo.LgResponse;
 
 /**
  * <p>
@@ -8,7 +8,7 @@ import com.xu.springsecurityoauth.pojo.LgResponse;
  * </p>
  *
  * @author xuhongda on 2018/9/11
- * com.xu.springsecurityoauth.service
+ * com.xu.web.service
  * springSecurityJwt
  */
 public interface LgService {

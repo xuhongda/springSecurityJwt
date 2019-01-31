@@ -1,4 +1,4 @@
-package com.xu.springsecurityoauth.pojo;
+package com.xu.web.pojo;
 
 import lombok.Data;
 import lombok.ToString;
@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 /**
  * @author xuhongda on 2018/9/11
- * com.xu.springsecurityoauth.pojo
+ * com.xu.web.pojo
  * springSecurityJwt
  */
 @Data

@@ -1,11 +1,16 @@
 package com.xu.springsecurityoauth.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 /**
@@ -13,6 +18,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
  * com.xu.springsecurityoauth.security
  * springSecurityJwt
  */
+@Slf4j
 @Configuration
 public class UserConfig extends WebSecurityConfigurerAdapter {
 
@@ -27,12 +33,18 @@ public class UserConfig extends WebSecurityConfigurerAdapter {
     @Bean
     @Override
     public UserDetailsService userDetailsService() {
-        return new InMemoryUserDetailsManager(
-                User.withDefaultPasswordEncoder()
-                        .username("subject")
-                        .password("password")
-                        .roles("USER")
-                        .build());
+        UserDetails build = User.builder()
+                .username("admin")
+                .password("123456")
+                .roles("USER")
+                .build();
+        log.info("password = {}", build.getPassword());
+        return new InMemoryUserDetailsManager(build);
+    }
+
+    @Bean
+    public static PasswordEncoder passwordEncoder() {
+        return NoOpPasswordEncoder.getInstance();
     }
 
 }

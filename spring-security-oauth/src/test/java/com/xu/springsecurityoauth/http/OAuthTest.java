@@ -70,7 +70,7 @@ public class OAuthTest {
                 .param("grant_type", "password")
                 .param("username", "subject")
                 .param("password", "password")
-                .header("Authorization", "Basic cmVhZGVyOnNlY3JldA=="))
+                .header("Authorization", getBasicAuthHeader()))
                 .andExpect(status().isOk());
     }
 

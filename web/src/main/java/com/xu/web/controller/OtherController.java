@@ -1,4 +1,4 @@
-package com.xu.springsecurityoauth.controller;
+package com.xu.web.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,7 +12,7 @@ import java.util.Map;
 
 /**
  * @author xuhongda on 2019/1/28
- * com.xu.springsecurityoauth.controller
+ * com.xu.web.controller
  * springSecurityJwt
  */
 @Slf4j
