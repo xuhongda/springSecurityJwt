@@ -9,6 +9,14 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
 
+    <modules>
+        <module>spring-security-oauth</module>
+        <module>spring-security-demo</module>
+        <module>sso-client1</module>
+        <module>sso-client2</module>
+        <module>web</module>
+    </modules>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -48,13 +56,5 @@
             </plugin>
         </plugins>
     </build>
-
-    <modules>
-        <module>spring-security-oauth</module>
-        <module>spring-security-demo</module>
-        <module>sso-client1</module>
-        <module>sso-client2</module>
-    </modules>
-
 
 </project>

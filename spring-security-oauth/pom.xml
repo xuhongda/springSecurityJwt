@@ -15,10 +15,6 @@
         <groupId>com.xu.springSecurityJwt</groupId>
         <artifactId>springSecurityJwt</artifactId>
         <version>1.0-SNAPSHOT</version>
-        <!--<groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.9.RELEASE</version>
-        <relativePath/>-->
     </parent>
 
     <properties>
@@ -33,7 +29,6 @@
         <dependency>
             <groupId>org.springframework.security.oauth.boot</groupId>
             <artifactId>spring-security-oauth2-autoconfigure</artifactId>
-            <version>2.1.2.RELEASE</version>
         </dependency>
 
         <dependency>
