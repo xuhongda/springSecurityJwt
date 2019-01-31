@@ -1,6 +1,5 @@
 package com.xu.springsecurityoauth.config;
 
-
 import com.xu.springsecurityoauth.propertites.MyOauth2ClientProperties;
 import com.xu.springsecurityoauth.propertites.MySecurityProperties;
 import lombok.extern.slf4j.Slf4j;
@@ -8,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -38,17 +38,20 @@ public class MyAuthenticationServerConfig extends AuthorizationServerConfigurerA
 
     private final JwtTokenStore jwtTokenStore;
 
-    @Autowired
-    private MySecurityProperties mySecurityProperties;
+    private final MySecurityProperties mySecurityProperties;
+
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
     public MyAuthenticationServerConfig(
             AuthenticationConfiguration authenticationConfiguration,
-            JwtAccessTokenConverter jwtAccessTokenConverter, JwtTokenStore jwtTokenStore) throws Exception {
+            JwtAccessTokenConverter jwtAccessTokenConverter, JwtTokenStore jwtTokenStore, MySecurityProperties mySecurityProperties, PasswordEncoder passwordEncoder) throws Exception {
 
         this.authenticationManager = authenticationConfiguration.getAuthenticationManager();
         this.jwtAccessTokenConverter = jwtAccessTokenConverter;
         this.jwtTokenStore = jwtTokenStore;
+        this.mySecurityProperties = mySecurityProperties;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -59,7 +62,7 @@ public class MyAuthenticationServerConfig extends AuthorizationServerConfigurerA
         clients.inMemory()
                 .withClient(myOauth2ClientProperties.get(0).getClientId())
                 .authorizedGrantTypes("password")
-                .secret(myOauth2ClientProperties.get(0).getClientSecret())
+                .secret(passwordEncoder.encode(myOauth2ClientProperties.get(0).getClientSecret()))
                 .scopes(myOauth2ClientProperties.get(0).getScopes())
                 .accessTokenValiditySeconds(myOauth2ClientProperties.get(0).getAccessTokenValiditySeconds())
                 .and()
