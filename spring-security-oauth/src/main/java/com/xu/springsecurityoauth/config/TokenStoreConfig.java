@@ -9,8 +9,10 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.oauth2.provider.endpoint.FrameworkEndpoint;
 import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.nimbusds.jose.jwk.RSAKey;
@@ -35,10 +37,19 @@ public class TokenStoreConfig {
         this.redisConnectionFactory = redisConnectionFactory;
     }
 
+    /**
+     * 当有如下配置使用redis储存，ConditionalOnProperty 配置，配置里会与havingValue 值比较一致执行，不一致不执行
+     */
+    @Bean
+    @ConditionalOnProperty(prefix = "com.xu.security.oauth2", name = "storeType", havingValue = "redis")
+    public TokenStore jwtTokenStore() {
+        return new RedisTokenStore(redisConnectionFactory);
+    }
 
     /**
      * JWT配置
      * ClassName: JwtTokenConfig
+     * matchIfMissing： 没有配置是否生效，配置true 生效
      */
     @Configuration
     @ConditionalOnProperty(prefix = "com.xu.security.oauth2", name = "storeType", havingValue = "jwt", matchIfMissing = true)
