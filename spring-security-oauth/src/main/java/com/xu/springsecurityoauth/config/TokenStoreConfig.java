@@ -2,20 +2,15 @@ package com.xu.springsecurityoauth.config;
 
 import com.nimbusds.jose.jwk.JWKSet;
 import com.xu.springsecurityoauth.convert.SubjectAttributeUserTokenConverter;
-import com.xu.springsecurityoauth.token.MyTokenEnhancer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.security.oauth2.provider.endpoint.FrameworkEndpoint;
 import org.springframework.security.oauth2.provider.token.DefaultAccessTokenConverter;
-import org.springframework.security.oauth2.provider.token.TokenEnhancer;
-import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
-import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.nimbusds.jose.jwk.RSAKey;
@@ -36,7 +31,7 @@ public class TokenStoreConfig {
     private final RedisConnectionFactory redisConnectionFactory;
 
     @Autowired
-    public TokenStoreConfig(RedisConnectionFactory redisConnectionFactory, KeyPair keyPair) {
+    public TokenStoreConfig(RedisConnectionFactory redisConnectionFactory) {
         this.redisConnectionFactory = redisConnectionFactory;
     }
 
