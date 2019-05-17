@@ -25,6 +25,8 @@ public class MyResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .exceptionHandling()
                 .and()
                 .authorizeRequests()
+                //添加登录白名单
+                .mvcMatchers("/hello").permitAll()
                 .anyRequest().authenticated()
                 .and().formLogin()
         ;
