@@ -68,8 +68,8 @@ public class OAuthTest {
 
         this.mockMvc.perform(post("/oauth/token")
                 .param("grant_type", "password")
-                .param("username", "subject")
-                .param("password", "password")
+                .param("username", "admin")
+                .param("password", "123456")
                 .header("Authorization", getBasicAuthHeader()))
                 .andExpect(status().isOk());
     }
