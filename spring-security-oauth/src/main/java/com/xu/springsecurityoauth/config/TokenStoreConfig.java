@@ -2,6 +2,7 @@ package com.xu.springsecurityoauth.config;
 
 import com.nimbusds.jose.jwk.JWKSet;
 import com.xu.springsecurityoauth.convert.SubjectAttributeUserTokenConverter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
@@ -27,6 +28,7 @@ import java.util.Map;
  * com.xu.springsecurityoauth.config
  * springSecurityJwt
  */
+@Slf4j
 @Configuration
 public class TokenStoreConfig {
 
@@ -70,6 +72,8 @@ public class TokenStoreConfig {
         @Bean
         public JwtAccessTokenConverter jwtAccessTokenConverter() {
             JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+            log.info("privateKey = {}",keyPair.getPrivate());
+            log.info("publicKey = {}",keyPair.getPublic());
             converter.setKeyPair(this.keyPair);
             DefaultAccessTokenConverter accessTokenConverter = new DefaultAccessTokenConverter();
             accessTokenConverter.setUserTokenConverter(new SubjectAttributeUserTokenConverter());

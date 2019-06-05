@@ -15,4 +15,9 @@ public class ControllerTest {
     public String login(){
         return "success !";
     }
+
+    @PostMapping("pp")
+    public String pp(){
+        return "pp !";
+    }
 }
