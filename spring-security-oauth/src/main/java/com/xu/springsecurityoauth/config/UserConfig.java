@@ -19,7 +19,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
  */
 @Slf4j
 @Configuration
-public class UserConfig extends WebSecurityConfigurerAdapter {
+public class UserConfig /*extends WebSecurityConfigurerAdapter*/ {
 
     private final PasswordEncoder passwordEncoder;
 
@@ -28,16 +28,20 @@ public class UserConfig extends WebSecurityConfigurerAdapter {
         this.passwordEncoder = passwordEncoder;
     }
 
-    @Override
+   /* @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
                 .mvcMatchers("/.well-known/jwks.json").permitAll()
                 .anyRequest().authenticated();
-    }
+    }*/
 
+    /**
+     * 验证：关键在于注入一个 {@link UserDetailsService} Bean
+     * @return {@link UserDetailsService}
+     */
     @Bean
-    @Override
+   /* @Override*/
     public UserDetailsService userDetailsService() {
         UserDetails build = User.builder()
                 .username("admin")
