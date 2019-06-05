@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>login</title>
+</head>
+<body>
+<script src="jquery-3.2.1.js" type="application/javascript"></script>
+login page
+<form >
+    name : <label for="username"><input type="text" name="username" id="username" /></label>
+    password : <label for="password"><input type="text" name="password" id="password"/></label>
+    <button type="button" id="sub">提交</button>
+</form>
+<script>
+
+
+    $("#sub").click(function () {
+        var username = $("#username").val();
+        var password = $("#password").val();
+        console.log(username + password);
+        let header = "Basic eHVob25nZGE6Nzc3Nw==" ;
+        $.ajax( {
+            url:"http://localhost:8087/oauth/token",
+            data:{"grant_type":"password","username":username,"password":password},
+            type:"post",
+            headers: {
+                Authorization: header
+            },
+            success: function f() {
+                alert("ok!")
+            }
+        })
+    });
+
+</script>
+</body>
+</html>

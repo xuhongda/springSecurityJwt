@@ -25,10 +25,10 @@ public class MyResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .exceptionHandling()
                 .and()
                 .authorizeRequests()
-                //添加登录白名单
-                .mvcMatchers("/hello").permitAll()
+                //添加验证白名单
+                .mvcMatchers("/login.html","/index.html","/jquery-3.2.1.js").permitAll()
                 .anyRequest().authenticated()
-                .and().formLogin()
+                .and().formLogin().loginPage("/login").failureForwardUrl("/index").permitAll()
         ;
     }
 
