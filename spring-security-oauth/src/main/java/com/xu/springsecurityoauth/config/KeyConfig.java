@@ -2,6 +2,7 @@ package com.xu.springsecurityoauth.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import java.math.BigInteger;
@@ -34,8 +35,9 @@ public class KeyConfig {
     }
 
     /**
-     * 密码加密
-     *
+     * 密码加密方式：
+     * 程序将以你注入的加密方式，对前端输入的密码加密{@link DaoAuthenticationProvider}#additionalAuthenticationChecks(org.springframework.security.core.userdetails.UserDetails, org.springframework.security.authentication.UsernamePasswordAuthenticationToken)
+     * 如此：用户注册时用同一套加密方式
      * @return PasswordEncoder
      */
     @Bean
