@@ -43,6 +43,15 @@ public class UserConfig /*extends WebSecurityConfigurerAdapter*/ {
     @Bean
    /* @Override*/
     public UserDetailsService userDetailsService() {
+
+
+        User.UserBuilder userBuilder = User.builder()
+                .username("admin")
+                .password(passwordEncoder.encode("123456"));
+
+
+
+
         UserDetails build = User.builder()
                 .username("admin")
                 .password(passwordEncoder.encode("123456"))
