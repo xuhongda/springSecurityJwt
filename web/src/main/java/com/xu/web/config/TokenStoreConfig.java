@@ -2,7 +2,6 @@ package com.xu.web.config;
 
 import com.xu.web.convert.SubjectAttributeUserTokenConverter;
 import com.xu.web.token.MyTokenConvert;
-import lombok.extern.log4j.Log4j;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
