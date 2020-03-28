@@ -10,18 +10,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.jwt.crypto.sign.RsaVerifier;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
-import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
-
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 
@@ -41,7 +38,6 @@ public class MyAuthenticationServerConfig extends AuthorizationServerConfigurerA
 
     private final AuthenticationManager authenticationManager;
 
-    private final JwtAccessTokenConverter jwtAccessTokenConverter;
 
     private final JwtTokenStore jwtTokenStore;
 
@@ -51,17 +47,19 @@ public class MyAuthenticationServerConfig extends AuthorizationServerConfigurerA
 
     private final MyTokenEnhancer myTokenEnhancer;
 
+    private final JwtAccessTokenConverter jwtAccessTokenConverter;
+
     @Autowired
     public MyAuthenticationServerConfig(
-            AuthenticationConfiguration authenticationConfiguration,
-            JwtAccessTokenConverter jwtAccessTokenConverter, JwtTokenStore jwtTokenStore, MySecurityProperties mySecurityProperties, PasswordEncoder passwordEncoder, MyTokenEnhancer myTokenEnhancer) throws Exception {
+            AuthenticationConfiguration authenticationConfiguration, JwtTokenStore jwtTokenStore, MySecurityProperties mySecurityProperties,
+            PasswordEncoder passwordEncoder, MyTokenEnhancer myTokenEnhancer, JwtAccessTokenConverter jwtAccessTokenConverter) throws Exception {
 
         this.authenticationManager = authenticationConfiguration.getAuthenticationManager();
-        this.jwtAccessTokenConverter = jwtAccessTokenConverter;
         this.jwtTokenStore = jwtTokenStore;
         this.mySecurityProperties = mySecurityProperties;
         this.passwordEncoder = passwordEncoder;
         this.myTokenEnhancer = myTokenEnhancer;
+        this.jwtAccessTokenConverter = jwtAccessTokenConverter;
     }
 
     @Override
