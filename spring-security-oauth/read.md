@@ -1,4 +1,5 @@
 ### 1. 获取 token 
+
 ---
 url：http://localhost:8087/oauth/token
 post 请求
@@ -16,3 +17,8 @@ grant_type=password
 ### 使用 token
 header:
 Authorization: bearer +token
+
+---
+验证 jwt token：
+org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationProcessingFilter.doFilter
+org.springframework.security.jwt.JwtHelper.decodeAndVerify
