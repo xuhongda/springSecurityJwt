@@ -2,8 +2,10 @@ package com.xu.springsecurityoauth.config;
 
 import com.xu.springsecurityoauth.propertites.MyOauth2ClientProperties;
 import com.xu.springsecurityoauth.propertites.MySecurityProperties;
+import com.xu.springsecurityoauth.token.MyTokenEnhancer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -12,9 +14,14 @@ import org.springframework.security.oauth2.config.annotation.configurers.ClientD
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancer;
+import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -42,16 +49,19 @@ public class MyAuthenticationServerConfig extends AuthorizationServerConfigurerA
 
     private final PasswordEncoder passwordEncoder;
 
+    private final MyTokenEnhancer myTokenEnhancer;
+
     @Autowired
     public MyAuthenticationServerConfig(
             AuthenticationConfiguration authenticationConfiguration,
-            JwtAccessTokenConverter jwtAccessTokenConverter, JwtTokenStore jwtTokenStore, MySecurityProperties mySecurityProperties, PasswordEncoder passwordEncoder) throws Exception {
+            JwtAccessTokenConverter jwtAccessTokenConverter, JwtTokenStore jwtTokenStore, MySecurityProperties mySecurityProperties, PasswordEncoder passwordEncoder, MyTokenEnhancer myTokenEnhancer) throws Exception {
 
         this.authenticationManager = authenticationConfiguration.getAuthenticationManager();
         this.jwtAccessTokenConverter = jwtAccessTokenConverter;
         this.jwtTokenStore = jwtTokenStore;
         this.mySecurityProperties = mySecurityProperties;
         this.passwordEncoder = passwordEncoder;
+        this.myTokenEnhancer = myTokenEnhancer;
     }
 
     @Override
@@ -76,12 +86,18 @@ public class MyAuthenticationServerConfig extends AuthorizationServerConfigurerA
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
+
+        TokenEnhancerChain enhancerChain = new TokenEnhancerChain();
+        //增强链，需要加入 jwtAccessTokenConverter
+        enhancerChain.setTokenEnhancers(Arrays.asList(myTokenEnhancer,jwtAccessTokenConverter));
         // @formatter:off
         endpoints
                 .authenticationManager(this.authenticationManager)
                 .accessTokenConverter(jwtAccessTokenConverter)
-                .tokenStore(jwtTokenStore);
+                .tokenStore(jwtTokenStore).
+                tokenEnhancer(enhancerChain);
         // @formatter:on
     }
+
 
 }
