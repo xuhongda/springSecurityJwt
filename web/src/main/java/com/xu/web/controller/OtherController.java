@@ -20,6 +20,7 @@ import java.util.Map;
 public class OtherController {
     private ObjectMapper mapper = new ObjectMapper();
 
+    @SuppressWarnings("unchecked")
     @GetMapping("about")
     public Object about(Authentication authentication) throws JsonProcessingException {
         OAuth2AuthenticationDetails details = (OAuth2AuthenticationDetails) authentication.getDetails();

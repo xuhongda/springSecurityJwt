@@ -67,7 +67,7 @@ public class TokenStoreConfig {
             log.info("privateKey = {}",keyPair.getPrivate());
             log.info("publicKey = {}",keyPair.getPublic());
             //converter.setKeyPair(this.keyPair);
-             converter.setSigningKey("xuhongda");
+             converter.setSigningKey("xuhongda&yan");
             DefaultAccessTokenConverter accessTokenConverter = new DefaultAccessTokenConverter();
             accessTokenConverter.setUserTokenConverter(new SubjectAttributeUserTokenConverter());
             //可以替换使用自己的 AccessTokenConverter
