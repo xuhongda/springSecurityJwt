@@ -18,11 +18,18 @@ import java.util.Map;
 public class MyTokenEnhancer implements TokenEnhancer {
     @Override
     public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
-        //往jwt添加的自定义信息
+        String name = authentication.getUserAuthentication().getName();
         Map<String, Object> info = new HashMap<>(16);
-        info.put("girl", "yan");
-        info.put("date","2016-12");
-        info.put("home", "JiangXi");
+        if ("yan".equals(name)){
+            //往jwt添加的自定义信息
+            info.put("girl", "yan");
+            info.put("date","2016-12");
+            info.put("home", "JiangXi");
+
+        }else {
+            //往jwt添加的自定义信息
+            info.put("home", "JiangXi");
+        }
         ((DefaultOAuth2AccessToken)accessToken).setAdditionalInformation(info);
         return accessToken;
     }
