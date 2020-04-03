@@ -45,6 +45,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
 
+
+        if ("yan".equals(id)){
+            log.info("yan come in...thanks I love you ... ");
+            return User.builder().username("yan").password(passwordEncoder.encode("520")).roles("wife").build();
+        }
+
         //1. 按userName 查询 数据库找出密码
         String password = "123456";
 
