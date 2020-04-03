@@ -21,6 +21,7 @@ public class MyTokenEnhancer implements TokenEnhancer {
         //往jwt添加的自定义信息
         Map<String, Object> info = new HashMap<>(16);
         info.put("girl", "yan");
+        info.put("date","2016-12");
         info.put("home", "JiangXi");
         ((DefaultOAuth2AccessToken)accessToken).setAdditionalInformation(info);
         return accessToken;
