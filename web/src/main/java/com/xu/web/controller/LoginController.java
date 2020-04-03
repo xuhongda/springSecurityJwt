@@ -44,7 +44,7 @@ public class LoginController {
     /**
      * web 轮询
      *
-     * @param lgtoken
+     * @param lgtoken 随机 UUID
      * @return LgResponse
      */
     @GetMapping("/qrcodelogin")
@@ -57,7 +57,7 @@ public class LoginController {
     /**
      * app 扫描二维码
      *
-     * @param lgtoken
+     * @param lgtoken 随机 UUID
      * @return
      */
     @GetMapping("/applogin")
