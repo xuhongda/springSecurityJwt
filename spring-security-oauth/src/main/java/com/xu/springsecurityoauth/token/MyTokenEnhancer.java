@@ -20,7 +20,8 @@ public class MyTokenEnhancer implements TokenEnhancer {
     public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
         String name = authentication.getUserAuthentication().getName();
         Map<String, Object> info = new HashMap<>(16);
-        if ("yan".equals(name)){
+        String realName = "yan";
+        if (realName.equals(name)){
             //往jwt添加的自定义信息
             info.put("girl", "yan");
             info.put("date","2016-12");
