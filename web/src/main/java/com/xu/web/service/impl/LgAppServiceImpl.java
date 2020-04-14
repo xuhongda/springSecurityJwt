@@ -62,7 +62,7 @@ public class LgAppServiceImpl implements LgAppService {
         log.info("principal = {}",authentication.getPrincipal());
         Assert.isTrue(aBoolean != null,"aBoolean 不为空");
         if (aBoolean) {
-            lgResponse.setABoolean(aBoolean);
+            lgResponse.setABoolean(true);
             lgResponse.setCode("2");
             lgResponse.setJwt(newJwt);
             Long expire = valueOperations.getOperations().getExpire(lgtoken);
