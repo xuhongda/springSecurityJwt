@@ -45,8 +45,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
 
-
-        if ("yan".equals(id)){
+        String name = "yan";
+        if (name.equals(id)){
             log.info("yan come in...thanks I love you ... ");
             return User.builder().username("yan").password(passwordEncoder.encode("520")).roles("wife").build();
         }
