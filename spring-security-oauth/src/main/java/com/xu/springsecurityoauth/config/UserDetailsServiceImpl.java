@@ -47,7 +47,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         String name = "yan";
         if (name.equals(id)){
-            log.info("yan come in...thanks I love you ... ");
+            log.info("yan come in...thanks you ... ");
             return User.builder().username("yan").password(passwordEncoder.encode("520")).roles("wife").build();
         }
         log.info("username = {}",id);
