@@ -19,7 +19,7 @@ login page
         var username = $("#username").val();
         var password = $("#password").val();
         console.log(username + password);
-        let header = "Basic eHVob25nZGE6Nzc3Nw==" ;
+        let header = "Basic eHVob25nZGE6Nzc3N19h" ;
         $.ajax( {
             url:"http://localhost:8087/oauth/token",
             data:{"grant_type":"password","username":username,"password":password},
