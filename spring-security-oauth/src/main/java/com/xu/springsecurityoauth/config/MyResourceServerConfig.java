@@ -26,7 +26,7 @@ public class MyResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 //添加验证白名单
-                .mvcMatchers("/login.html","/index.html","/jquery-3.2.1.js").permitAll()
+                .mvcMatchers("/login.html","/jquery-3.2.1.js","/index").permitAll()
                 .antMatchers("/hello/**").hasRole("USER")
                 .anyRequest().authenticated()
                 .and().formLogin().loginPage("/login").failureForwardUrl("/index").permitAll()
