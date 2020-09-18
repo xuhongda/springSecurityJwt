@@ -31,8 +31,11 @@
             headers: {
                 Authorization: header
             },
-            success: function f() {
+            success: function () {
                 $("#info").append("<span style='color: rebeccapurple'>login success</span>")
+            },
+            error: function (data) {
+                $("#info").append("<span style='color: rebeccapurple'>"+data+"</span>")
             }
         })
     });
