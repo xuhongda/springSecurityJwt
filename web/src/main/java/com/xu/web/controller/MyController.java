@@ -28,7 +28,7 @@ public class MyController {
     @GetMapping("me")
     public Object me(Authentication authentication, HttpServletRequest request) throws UnsupportedEncodingException {
         String authorization = request.getHeader("Authorization");
-        String bearer = StringUtils.substringAfter(authorization, "bearer");
+        String bearer = StringUtils.substringAfter(authorization, "Bearer");
         //验签默认并不是使用utf-8
         Claims xuhongda;
         if (bearer != null) {
