@@ -125,7 +125,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <fork>true</fork>
-                    <mainClass>com.xu.springsecurityoauth.SpringSecurityOauthApplication</mainClass>
+                    <mainClass>com.xu.web.SpringSecurityOauthApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>

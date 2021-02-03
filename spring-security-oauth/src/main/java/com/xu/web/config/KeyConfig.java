@@ -1,4 +1,4 @@
-package com.xu.springsecurityoauth.config;
+package com.xu.web.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

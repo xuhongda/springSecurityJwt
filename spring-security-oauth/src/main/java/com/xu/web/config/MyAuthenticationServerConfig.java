@@ -1,8 +1,8 @@
-package com.xu.springsecurityoauth.config;
+package com.xu.web.config;
 
-import com.xu.springsecurityoauth.propertites.MyOauth2ClientProperties;
-import com.xu.springsecurityoauth.propertites.MySecurityProperties;
-import com.xu.springsecurityoauth.token.MyTokenEnhancer;
+import com.xu.web.propertites.MyOauth2ClientProperties;
+import com.xu.web.propertites.MySecurityProperties;
+import com.xu.web.token.MyTokenEnhancer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

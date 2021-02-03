@@ -1,4 +1,4 @@
-package com.xu.springsecurityoauth.convert;
+package com.xu.web.convert;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;

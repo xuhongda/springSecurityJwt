@@ -1,4 +1,4 @@
-package com.xu.springsecurityoauth.propertites;
+package com.xu.web.propertites;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,7 +1,7 @@
-package com.xu.springsecurityoauth.config;
+package com.xu.web.config;
 
 import com.nimbusds.jose.jwk.JWKSet;
-import com.xu.springsecurityoauth.convert.SubjectAttributeUserTokenConverter;
+import com.xu.web.convert.SubjectAttributeUserTokenConverter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
