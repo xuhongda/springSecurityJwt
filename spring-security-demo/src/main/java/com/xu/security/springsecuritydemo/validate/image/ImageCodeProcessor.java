@@ -1,7 +1,6 @@
 package com.xu.security.springsecuritydemo.validate.image;
 
 import com.xu.security.springsecuritydemo.validate.AbstractValidateCodeProcessor;
-import com.xu.security.springsecuritydemo.validate.image.ImageCode;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.ServletWebRequest;
 
