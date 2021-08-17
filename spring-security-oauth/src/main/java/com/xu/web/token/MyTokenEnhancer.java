@@ -26,6 +26,8 @@ public class MyTokenEnhancer implements TokenEnhancer {
             info.put("girl", "yan");
             info.put("date","2016-12");
             info.put("home", "JiangXi");
+            info.put("university","Ecut");
+            info.put("master","heFeiGongYe");
 
         }else {
             //往jwt添加的自定义信息
