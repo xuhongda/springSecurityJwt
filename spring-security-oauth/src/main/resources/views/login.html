@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>login</title>
+</head>
+<body>
+<script src="jquery-3.2.1.js" type="application/javascript"></script>
+<h2>login page</h2>
+<form >
+    name : <label for="username"><input type="text" name="username" id="username" /></label>
+    password : <label for="password"><input type="text" name="password" id="password"/></label>
+    <button type="button" id="sub">提交</button>
+</form>
+<p id="info">
+
+</p>
+<script>
+
+
+    $("#sub").click(function () {
+        $("#info").empty();
+        var username = $("#username").val();
+        var password = $("#password").val();
+        console.log(username + password);
+        let header = "Basic eHVob25nZGE6Nzc3N19h" ;
+        $.ajax( {
+            url:"http://localhost:8087/oauth/token",
+            data:{"grant_type":"password","username":username,"password":password},
+            type:"post",
+            headers: {
+                Authorization: header
+            },
+            success: function () {
+                $("#info").append("<span style='color: rebeccapurple'>login success</span>")
+            },
+            error: function (data) {
+                $("#info").append("<span style='color: rebeccapurple'>"+data+"</span>")
+            }
+        })
+    });
+
+</script>
+</body>
+</html>

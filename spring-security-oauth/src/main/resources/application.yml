@@ -1,17 +1,27 @@
 server:
   port: 8087
 spring:
+  application:
+    name: oauth2-security
   session:
     store-type: redis
+  thymeleaf:
+    servlet:
+      content-type: text/html
+    mode: HTMl
+    encoding: UTF-8
+    cache: false
+    prefix: classpath:/views/
+    suffix: .html
 #TOKEN client
-
-
 com:
   xu:
     myOauth2Properties:
       myOauth2ClientProperties[0]:
         clientId: xuhongda
-        clientSecret: 7777
+        clientSecret: 7777_a
+        accessTokenValiditySeconds: 30000
+        scopes[0]: message:read
       myOauth2ClientProperties[1]:
         clientId: yan
         clientSecret: 1212
